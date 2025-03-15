@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^3.79.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.482.0",
     "next": "15.2.2",
+    "next-sanity": "^9.9.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "sanity": "^3.79.0",
+    "styled-components": "^6.1.15",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7"
   },
