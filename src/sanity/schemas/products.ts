@@ -17,6 +17,18 @@ export default defineType({
         }),
 
         defineField({
+            name: "description",
+            type: "string",
+            title: "description",
+            validation: (Rule) => [
+                Rule.required(),
+                Rule.min(10).error("label must be at least 20 char"),
+                Rule.max(1000).error("label must be at most 1000 char"),
+            ],
+        }),
+
+
+        defineField({
             name: "image",
             type: "image",
             title: "image",
