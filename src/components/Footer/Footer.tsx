@@ -27,7 +27,7 @@ const Footer = () => {
     }, [resolvedTheme]);
 
     return <>
-        <footer className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 ">
+        <footer className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 mt-42">
             <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
                 <div className="flex justify-center text-teal-600">
                     <h1 className="flex items-center gap-4 text-3xl">

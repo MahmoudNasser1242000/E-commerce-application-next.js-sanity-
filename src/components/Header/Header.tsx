@@ -34,10 +34,10 @@ export default function Navbar() {
     }, [resolvedTheme]);
 
     return (
-        <nav className="border-b fixed left-0 right-0 bg-white dark:bg-black py-1 nav">
+        <nav className="border-b fixed left-0 right-0 bg-white dark:bg-black py-1 nav z-1000">
             <div className="mx-auto flex justify-between md:justify-center h-16 max-w-screen-xl items-center px-4">
                 {/* Logo */}
-                <Link href="/" className="flex items-center space-x-2">
+                <Link href="/" className="flex items-center space-x-2 focus:ring-0">
                     <Image
                         src={`/images/${themes === "dark"? "logo-dark.svg": "logo.svg"}`}
                         alt="Logo"
