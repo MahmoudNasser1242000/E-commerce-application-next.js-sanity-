@@ -5,3 +5,9 @@ export interface INavLinks {
     label: string;
     icon: LucideIcon
 }
+
+export interface ISocialMediaLinks {
+    title: string;
+    href: string;
+    icon: LucideIcon
+}
