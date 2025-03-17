@@ -34,7 +34,7 @@ export default function Navbar() {
     }, [resolvedTheme]);
 
     return (
-        <nav className="border-b border-gray-200 fixed to-0 left-0 right-0 bg-white dark:bg-black py-1 nav">
+        <nav className="border-b fixed left-0 right-0 bg-white dark:bg-black py-1 nav">
             <div className="mx-auto flex justify-between md:justify-center h-16 max-w-screen-xl items-center px-4">
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-2">
@@ -56,7 +56,7 @@ export default function Navbar() {
                         <Link
                             key={href}
                             href={href}
-                            className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                            className="text-md font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                         >
                             {label}
                         </Link>

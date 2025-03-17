@@ -28,7 +28,7 @@ const Footer = () => {
 
     return <>
         <footer className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 ">
-            <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
                 <div className="flex justify-center text-teal-600">
                     <h1 className="flex items-center gap-4 text-3xl">
                         <Image
@@ -45,7 +45,7 @@ const Footer = () => {
                 </div>
 
                 <p className="mx-auto mt-6 max-w-lg text-center leading-relaxed text-gray-500">
-                Shop with confidence at [My Store], where quality meets convenience. Enjoy secure shopping, fast shipping, and top-notch customer service. Thank you for choosing us!
+                    Shop with confidence at [My Store], where quality meets convenience. Enjoy secure shopping, fast shipping, and top-notch customer service. Thank you for choosing us!
                 </p>
 
                 <ul className="mt-6 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
@@ -54,7 +54,7 @@ const Footer = () => {
                             <Link
                                 key={href}
                                 href={href}
-                                className="text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                                className="text-md font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                             >
                                 {label}
                             </Link>
