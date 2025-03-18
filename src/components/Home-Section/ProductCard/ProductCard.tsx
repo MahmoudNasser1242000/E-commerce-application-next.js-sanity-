@@ -39,7 +39,7 @@ const ProductCard = ({ product }: { product: IProducts }) => {
                     </Link>
 
                     <Link
-                        href={""}
+                        href={`/Products/Product-Details/${product._id}`}
                         className={cn(buttonVariants({className: "w-[50%] cursor-pointer rounded-sm bg-gray-900 hover:bg-gray-900 px-4 py-3 text-sm font-medium text-white transition hover:scale-105"}))}
                     >
                         Details...
