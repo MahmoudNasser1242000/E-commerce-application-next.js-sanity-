@@ -1,12 +1,10 @@
-"use client"
 import { Home, ShoppingBag } from "lucide-react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import React from "react";
 
-const Devider = ({productId}: {productId: string}) => {
+const Devider = ({productTitle}: {productTitle: string}) => {
     return <div>
-        <nav aria-label="Breadcrumb" className="flex">
+        <nav aria-label="Breadcrumb" className="px-4 flex">
             <ol className="flex overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 text-gray-600">
                 <li className="flex items-center">
                     <Link
@@ -38,7 +36,7 @@ const Devider = ({productId}: {productId: string}) => {
                     <span
                         className="flex h-10 items-center bg-white pe-4 ps-8 text-xs font-medium transition hover:text-gray-900"
                     >
-                        ProductId ({productId})
+                        {productTitle}
                     </span>
                 </li>
             </ol>

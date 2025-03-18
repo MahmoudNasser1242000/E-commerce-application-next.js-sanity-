@@ -7,14 +7,14 @@ import Link from "next/link";
 
 const ProductCard = ({ product }: { product: IProducts }) => {
     return <>
-        <div className="group w-[300px] h-[300px] rounded-sm">
+        <div className="group h-[300px] rounded-sm">
             <div className="h-[60%] overflow-hidden border border-b-0 dark:border-none rounded-t-sm">
                 <Image
                     src={urlFor(product.image).url()}
                     alt={product.title}
                     width={400}
                     height={400}
-                    className="object-cover size-full rounded-t-sm transition duration-500 group-hover:scale-106"
+                    className="object-cover rounded-t-sm transition duration-500 group-hover:scale-106 size-full"
                 />
             </div>
 
@@ -30,7 +30,7 @@ const ProductCard = ({ product }: { product: IProducts }) => {
                     {product.description}
                 </p>
 
-                <div className="mt-4 flex gap-4">
+                <div className="mt-4 flex justify-center gap-4">
                     <Link
                         href={""}
                         className={cn(buttonVariants({className: "w-[50%] cursor-pointer rounded-sm bg-gray-100 hover:bg-gray-100 px-4 py-3 text-sm font-medium text-gray-900 transition hover:scale-105"}))}

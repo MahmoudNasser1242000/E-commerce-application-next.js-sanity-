@@ -79,7 +79,7 @@ export default function Navbar() {
                                 <SheetHeader>
                                     <SheetTitle className="text-xl font-bold text-gray-800 dark:text-gray-100">
                                         <Image
-                                            src="/images/logo.svg"
+                                            src={`/images/${themes === "dark"? "logo-dark.svg": "logo.svg"}`}
                                             alt="Logo"
                                             width={55}
                                             height={55}

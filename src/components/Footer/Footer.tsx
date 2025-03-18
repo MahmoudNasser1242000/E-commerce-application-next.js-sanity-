@@ -50,9 +50,8 @@ const Footer = () => {
 
                 <ul className="mt-6 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
                     {navLinks.map(({ href, label }: INavLinks) => (
-                        <li>
+                        <li key={href}>
                             <Link
-                                key={href}
                                 href={href}
                                 className="text-md font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                             >

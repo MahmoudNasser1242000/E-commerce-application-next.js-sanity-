@@ -9,14 +9,14 @@ import React from "react";
 
 const ProductDetails = ({ product }: { product: IProducts }) => {
     return <>
-        <section className="overflow-hidden rounded-lg shadow-2xl dark:shadow-gray-700 md:grid md:grid-cols-3 mt-18">
+        <section className="overflow-hidden mx-4 rounded-lg shadow-2xl dark:shadow-gray-700 md:grid md:grid-cols-3 mt-18">
             <div className="overflow-hidden">
                 <Image
                     alt={product.title}
                     src={urlFor(product.image).url()}
                     width={300}
                     height={300}
-                    className="h-32 w-full object-cover md:h-full hover:scale-105 transition duration-500"
+                    className="w-full object-cover h-full hover:scale-105 transition duration-500"
                 />
             </div>
 
