@@ -12,11 +12,15 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import React, { useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
     const { theme, resolvedTheme } = useTheme();
-    const [themes, setTheme] = useState<string>(""); //resolvedTheme
-
+    const [themes, setTheme] = useState<string>("");
+    const [pathValid, setPathValid] = useState<boolean>();
+    const {user} = useUser();
+    const path = usePathname();
 
     useEffect(() => {
         if (resolvedTheme === "dark") {
@@ -26,8 +30,16 @@ const Footer = () => {
         }
     }, [resolvedTheme]);
 
+    useEffect(() => {
+        if (path === "/" || path === "/Products" || path === "/Product-Details") {
+            setPathValid(true);
+        } else {
+            setPathValid(false);
+        }
+    }, [path]);
+
     return <>
-        <footer className="bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 mt-42">
+        <footer className={`bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800 mt-42 lg:mt-28 ${user ? "block" : (!user && pathValid)? "block" : "hidden"}`}>
             <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
                 <div className="flex justify-center text-teal-600">
                     <h1 className="flex items-center gap-4 text-3xl">
@@ -48,7 +60,7 @@ const Footer = () => {
                     Shop with confidence at [My Store], where quality meets convenience. Enjoy secure shopping, fast shipping, and top-notch customer service. Thank you for choosing us!
                 </p>
 
-                <ul className="mt-6 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12">
+                <ul className={`mt-6 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12 ${user ? "block" : "hidden"}`}>
                     {navLinks.map(({ href, label }: INavLinks) => (
                         <li key={href}>
                             <Link

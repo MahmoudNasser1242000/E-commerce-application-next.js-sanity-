@@ -11,11 +11,11 @@ const ProductList = async () => {
     const products = await getProducts();
     return <section className="container mx-auto">
         <SectionTitle title="Featured Products" desc=" Find the best deals on trending items!" />
-        <div className="flex justify-center sm:justify-between items-center flex-wrap gap-y-34 mt-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-12 lg:gap-x-6 gap-y-34 mt-14 px-4">
             {products.slice(0, 4).map((product: IProducts) => <ProductCard key={product._id} product={product} />)}
         </div>
         <div className="flex justify-center items-center mt-44">
-            <Link href={""} className={cn(buttonVariants({ variant: "default", className: "px-8 py-5 rounded-sm text-white" }))}>
+            <Link href={"/Products"} className={cn(buttonVariants({ variant: "default", className: "px-8 py-5 rounded-sm text-white" }))}>
                 See More Products <span className="ml-2">→</span>
             </Link>
         </div>
