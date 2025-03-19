@@ -18,7 +18,7 @@ import { navLinks } from "@/constants/navLinks"
 import { INavLinks } from "@/types";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
-import { useUser } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 export default function Navbar() {
     const [open, setOpen] = useState<boolean>(false);
@@ -67,7 +67,10 @@ export default function Navbar() {
                             </div>
 
                             <div className="flex items-center space-x-2">
-                                <ModeToggle />
+                                <div className="flex items-center gap-x-4">
+                                    <ModeToggle />
+                                    <UserButton afterSwitchSessionUrl="/" />
+                                </div>
 
                                 <div className="md:hidden">
                                     <Sheet open={open} onOpenChange={setOpen}>
