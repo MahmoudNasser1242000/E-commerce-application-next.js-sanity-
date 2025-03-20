@@ -58,10 +58,10 @@ const ProductDetails = ({ product }: { product: IProducts }) => {
 
                 <Button
                     onClick={() => addToCart()}
-                    className={"flex w-full text-lg py-6 text-white rounded-sm my-6"}
+                    className={"flex w-full text-lg py-6 text-white rounded-sm my-6 cursor-pointer"}
                 >
                     <span>Add To Your Cart</span>
-                    <ShoppingCart size={30} />
+                    <ShoppingCart className="size-6" />
                 </Button>
 
                 <p className="mt-8 text-xs font-medium uppercase flex justify-center items-center gap-2">
