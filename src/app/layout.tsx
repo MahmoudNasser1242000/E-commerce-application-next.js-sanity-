@@ -7,6 +7,7 @@ import Footer from "@/components/Footer/Footer";
 import {
   ClerkProvider,
 } from '@clerk/nextjs'
+import { Bounce, ToastContainer, toast } from 'react-toastify';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,6 +44,18 @@ export default function RootLayout({
             <Header />
             {children}
             <Footer />
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick={false}
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              transition={Bounce}
+            />
           </ThemeProvider>
         </ClerkProvider>
       </body>

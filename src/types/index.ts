@@ -29,3 +29,10 @@ export interface IProducts {
     instantDelivery: boolean;
     category: string
 }
+
+export interface ICart {
+    _id: string;
+    username: string;
+    email: string;
+    products: IProducts[];
+}

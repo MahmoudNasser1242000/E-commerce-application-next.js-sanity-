@@ -1,19 +1,38 @@
-import { buttonVariants } from "@/components/ui/button";
+"use client";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { addProductToCart } from "@/lib/cart";
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { IProducts } from "@/types";
+import { useUser } from "@clerk/nextjs";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 const ProductCard = ({ product }: { product: IProducts }) => {
+    const { theme, resolvedTheme } = useTheme();
+    const [themes, setTheme] = useState<"light" | "dark">();
+    const { user } = useUser()
+
+    useEffect(() => {
+        if (resolvedTheme === "dark") {
+            setTheme("dark")
+        } else {
+            setTheme("light")
+        }
+    }, [resolvedTheme]);
+    const addToCart = async () => {
+        await addProductToCart(user?.emailAddresses[0]?.emailAddress, user?.username, product._id, themes);
+    }
     return <>
         <div className="group h-[300px] rounded-sm">
             <div className="h-[60%] overflow-hidden border border-b-0 dark:border-none rounded-t-sm">
                 <Image
                     src={urlFor(product.image).url()}
                     alt={product.title}
-                    width={400}
-                    height={400}
+                    width={800}
+                    height={800}
                     className="object-cover rounded-t-sm transition duration-500 group-hover:scale-106 size-full"
                 />
             </div>
@@ -31,12 +50,12 @@ const ProductCard = ({ product }: { product: IProducts }) => {
                 </p>
 
                 <div className="mt-4 flex justify-center gap-4">
-                    <Link
-                        href={""}
-                        className={cn(buttonVariants({className: "w-[50%] cursor-pointer rounded-sm bg-gray-100 hover:bg-gray-100 px-4 py-3 text-sm font-medium text-gray-900 transition hover:scale-105"}))}
+                    <Button
+                        onClick={() =>addToCart()}
+                        className={"w-[50%] cursor-pointer rounded-sm bg-gray-100 hover:bg-gray-100 px-4 py-3 text-sm font-medium text-gray-900 transition hover:scale-105"}
                     >
                         Add to Cart
-                    </Link>
+                    </Button>
 
                     <Link
                         href={`/Products/Product-Details/${product._id}`}

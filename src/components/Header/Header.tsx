@@ -23,7 +23,7 @@ import { UserButton, useUser } from "@clerk/nextjs";
 export default function Navbar() {
     const [open, setOpen] = useState<boolean>(false);
     const { theme, resolvedTheme } = useTheme();
-    const [themes, setTheme] = useState<string>(""); //resolvedTheme
+    const [themes, setTheme] = useState<string>("");
     const { user } = useUser()
 
     useEffect(() => {

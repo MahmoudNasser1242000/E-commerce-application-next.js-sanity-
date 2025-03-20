@@ -1,21 +1,39 @@
-import { buttonVariants } from "@/components/ui/button";
+"use client";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { addProductToCart } from "@/lib/cart";
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { IProducts } from "@/types";
+import { useUser } from "@clerk/nextjs";
 import { BadgeCheck, OctagonX, ShoppingCart } from "lucide-react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const ProductDetails = ({ product }: { product: IProducts }) => {
+    const { theme, resolvedTheme } = useTheme();
+    const [themes, setTheme] = useState<"light" | "dark">();
+    const { user } = useUser()
+
+    useEffect(() => {
+        if (resolvedTheme === "dark") {
+            setTheme("dark")
+        } else {
+            setTheme("light")
+        }
+    }, [resolvedTheme]);
+
+    const addToCart = async () => {
+        await addProductToCart(user?.emailAddresses[0]?.emailAddress, user?.username, product._id, themes);
+    }
     return <>
         <section className="overflow-hidden mx-4 rounded-lg shadow-2xl dark:shadow-gray-700 md:grid md:grid-cols-3 mt-18">
             <div className="overflow-hidden">
                 <Image
                     alt={product.title}
                     src={urlFor(product.image).url()}
-                    width={300}
-                    height={300}
+                    width={800}
+                    height={800}
                     className="w-full object-cover h-full hover:scale-105 transition duration-500"
                 />
             </div>
@@ -38,13 +56,13 @@ const ProductDetails = ({ product }: { product: IProducts }) => {
                     {product.description}
                 </p>
 
-                <Link
-                    className={cn(buttonVariants({ variant: "default", className: "flex text-lg py-6 text-white rounded-sm my-6" }))}
-                    href="#"
+                <Button
+                    onClick={() => addToCart()}
+                    className={"flex w-full text-lg py-6 text-white rounded-sm my-6"}
                 >
                     <span>Add To Your Cart</span>
                     <ShoppingCart size={30} />
-                </Link>
+                </Button>
 
                 <p className="mt-8 text-xs font-medium uppercase flex justify-center items-center gap-2">
                     {product.instantDelivery ? (
