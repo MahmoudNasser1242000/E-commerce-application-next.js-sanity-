@@ -7,7 +7,7 @@ import Footer from "@/components/Footer/Footer";
 import {
   ClerkProvider,
 } from '@clerk/nextjs'
-import { Bounce, ToastContainer, toast } from 'react-toastify';
+import { Bounce, ToastContainer } from 'react-toastify';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

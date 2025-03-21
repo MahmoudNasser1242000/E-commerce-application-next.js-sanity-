@@ -45,8 +45,10 @@ export default function Navbar() {
     }, [resolvedTheme]);
 
     useEffect(() => {
-        getCart()
-    }, [user]);
+        if (user?.emailAddresses[0].emailAddress !== undefined) {
+            getCart()
+        }
+    }, [user?.emailAddresses[0].emailAddress]);
 
     return (
         <nav className="border-b fixed left-0 right-0 bg-white dark:bg-black py-1 nav z-1000">
@@ -82,7 +84,7 @@ export default function Navbar() {
 
                             <div className="flex items-center space-x-2">
                                 <div className="flex items-center gap-x-4">
-                                    <div className="relative">
+                                    <div className="relative hidden sm:block">
                                         <span onClick={() => setOpenCart(true)} className={ cn(buttonVariants({ variant: "ghost", size: "lg", className: "flex items-center gap-x-1 cursor-pointer"}))}>
                                             <ShoppingCart className="size-6" />
                                             <span className="text-xl">({cart?.products.length || 0})</span>

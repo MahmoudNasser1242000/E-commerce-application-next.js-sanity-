@@ -10,12 +10,7 @@ export const addToast = (status: "success" | "error" | "warn", msg: string, them
         draggable: true,
         progress: undefined,
         theme,
-        style: {
-            width: "fit-content",
-            paddingRight: "3rem",
-            paddingTop: "1rem",
-            paddingBottom: "1rem",
-        },
+        className: "w-full sm:w-fit py-2",
         transition: Bounce,
         });
 }
