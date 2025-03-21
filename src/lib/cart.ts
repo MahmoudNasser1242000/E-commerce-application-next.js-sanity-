@@ -1,5 +1,6 @@
 import { client } from "@/sanity/lib/client"
 import { addToast } from "./toast";
+import { ICart, IProducts } from '@/types';
 
 export const getMyCart = async (email: string | undefined) => {
     const query = `*[_type == "cart" && email == $email]{
@@ -56,3 +57,24 @@ export const addProductToCart = async (email: string | undefined, username: stri
         addToast("success", "Cart created and product added successfully", theme);
     }
 };
+
+export const deleteProductFromCart = async (email: string | undefined, projectId: string, theme: "light" | "dark" = "light") => {
+    const cart = await getMyCart(email);
+    if (!cart) {
+        addToast("warn", "Cart not found", theme);
+        return;
+    } else {
+        const productExists = cart.products.find((product: IProducts) => product._id === projectId);
+        if (!productExists) {
+            addToast("warn", "Product not found in the cart", theme);
+            return;
+        }
+
+        const updatedProducts = cart.products.filter((product: IProducts) => product._id !== projectId);
+        const updatedCart = await client.patch(cart._id)
+        .set({ products: updatedProducts })
+        .commit();
+        addToast("success", "Product removed successfully", theme);
+        return updatedCart as unknown as ICart;
+    }
+}

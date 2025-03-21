@@ -51,7 +51,7 @@ export default function Navbar() {
     }, [user?.emailAddresses[0].emailAddress]);
 
     return (
-        <nav className="border-b fixed left-0 right-0 bg-white dark:bg-black py-1 nav z-1000">
+        <nav className="fixed left-0 right-0 bg-white dark:bg-black py-1 nav z-1000">
             <div className="mx-auto flex justify-between h-16 max-w-screen-xl items-center px-4">
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-2 focus:ring-0">
@@ -87,7 +87,7 @@ export default function Navbar() {
                                     <div className="relative hidden sm:block">
                                         <span onClick={() => setOpenCart(true)} className={ cn(buttonVariants({ variant: "ghost", size: "lg", className: "flex items-center gap-x-1 cursor-pointer"}))}>
                                             <ShoppingCart className="size-6" />
-                                            <span className="text-xl">({cart?.products.length || 0})</span>
+                                            <span className="text-xl">({cart?.products?.length || 0})</span>
                                         </span>
                                         <CartSection cart={cart} openCart={openCart} setOpenCart={setOpenCart} />
                                     </div>

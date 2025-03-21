@@ -27,13 +27,13 @@ const CartSection = ({ openCart, setOpenCart, cart }: IProps) => {
             </Button>
 
             {
-                !cart || !cart.products.length ? (
+                !cart || !cart?.products?.length ? (
                     <h2 className="px-6 py-4 text-2xl">Your cart is empty</h2>
                 ) : (
                     <div className="mt-4 space-y-6 text-gray-700 dark:text-gray-200">
                         <ul className="space-y-4 mt-8">
                             {
-                                cart.products.slice(0, 3).map((product) => (
+                                cart.products?.slice(0, 3).map((product) => (
                                     <li key={product._id} className={cn(buttonVariants({ variant: "ghost", className: "flex items-center justify-start w-full gap-4 h-fit" }))}>
                                         <Image
                                             src={urlFor(product.image).url()}

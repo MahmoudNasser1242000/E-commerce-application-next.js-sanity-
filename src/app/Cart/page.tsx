@@ -1,11 +1,11 @@
 "use client";
-import { Button, buttonVariants } from "@/components/ui/button";
+import DialogDelelteProduct from "@/components/Dialog/Dialog";
+import { Button } from "@/components/ui/button";
 import { getMyCart } from "@/lib/cart";
-import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { ICart } from "@/types";
 import { useUser } from "@clerk/nextjs";
-import { ShoppingCartIcon, Trash2 } from "lucide-react";
+import { ShoppingCartIcon } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
@@ -14,7 +14,7 @@ const page = () => {
     const { user } = useUser();
 
     const getCart = async () => {
-        const cart = await getMyCart(user?.emailAddresses[0].emailAddress);
+        const cart = await getMyCart(user?.emailAddresses[0].emailAddress);        
         setCart(cart)
     }
     useEffect(() => {
@@ -22,6 +22,10 @@ const page = () => {
             getCart()
         }
     }, [user?.emailAddresses[0].emailAddress]);
+
+    console.log('====================================');
+    console.log(cart);
+    console.log('====================================');
     return <>
         <section>
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 pt-34">
@@ -34,13 +38,13 @@ const page = () => {
                     </header>
 
                     {
-                        !cart || !cart.products.length ? (
+                        !cart || !cart.products?.length ? (
                             <h2 className="px-6 py-8 text-2xl">Your cart is empty</h2>
                         ) : (
                             <div className="mt-8">
                                 <ul className="space-y-4">
                                     {
-                                        cart.products.map((product) => (
+                                        cart?.products?.map((product) => (
                                             <li className="flex items-center gap-4" key={product._id}>
                                                 <div className="overflow-hidden">
                                                     <Image
@@ -69,11 +73,9 @@ const page = () => {
                                                 </div>
 
                                                 <div className="flex flex-1 items-center justify-end gap-2">
-                                                    <button className="text-gray-600 transition hover:text-red-600">
-                                                        <span className={cn(buttonVariants({variant: "ghost", className: "text-red-500 hover:text-red-400 cursor-pointer"}))}>
-                                                            <Trash2 className="size-5" />
-                                                        </span>
-                                                    </button>
+                                                    <div className="text-gray-600 transition hover:text-red-600">
+                                                        <DialogDelelteProduct setCart={setCart} productId={product._id} />
+                                                    </div>
                                                 </div>
                                             </li>
                                         ))
