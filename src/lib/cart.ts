@@ -82,7 +82,7 @@ export const deleteProductFromCart = async (email: string | undefined, productId
     }
 }
 
-export const clearCartProducts = async (email:string | undefined, theme: "light" | "dark" = "light") => {
+export const clearCartProducts = async (email:string | undefined, theme: "light" | "dark" = "light", allow: boolean = true) => {
     const cart = await getMyCart(email);
     if (!cart) {
         addToast("warn", "Cart not found", "light");
@@ -94,5 +94,7 @@ export const clearCartProducts = async (email:string | undefined, theme: "light"
         .set({ products: [] }) // Sets the products array to empty
         .commit();
 
-    addToast("success", "Cart cleared successfully!", theme);
+    if (allow) {
+        addToast("success", "Cart cleared successfully!", theme);
+    }
 }

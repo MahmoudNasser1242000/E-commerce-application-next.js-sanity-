@@ -42,16 +42,16 @@ const Cart = ({children}: {children: React.ReactNode}) => {
             dispatch({ type: "REMOVE_FROM_CART", payload: updatedCart });
         }
     }
-    const clearCart = async (email: string | undefined, theme: "light" | "dark" = "light") => {
+    const clearCart = async (email: string | undefined, theme: "light" | "dark" = "light", allow: boolean = true) => {
         if (email) {
-            await clearCartProducts(email, theme );
+            await clearCartProducts(email, theme, allow);
             const updatedCart = await getMyCart(email);
             dispatch({ type: "CLEAR_CART", payload: updatedCart });
         }
     }
     return <cartContect.Provider value={{ state, dispatch, fetchCart, addProduct, removeProduct, clearCart }}>
-        {children};
-    </cartContect.Provider>;
+        {children}
+    </cartContect.Provider>
 };
 
 export default Cart;

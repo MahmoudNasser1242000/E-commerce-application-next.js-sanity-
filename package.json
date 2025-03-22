@@ -17,6 +17,7 @@
     "@radix-ui/react-tooltip": "^1.1.8",
     "@sanity/image-url": "^1.1.0",
     "@sanity/vision": "^3.79.0",
+    "@stripe/stripe-js": "^6.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.482.0",
@@ -28,6 +29,7 @@
     "react-is": "^19.0.0",
     "react-toastify": "^11.0.5",
     "sanity": "^3.79.0",
+    "stripe": "^17.7.0",
     "styled-components": "^6.1.15",
     "tailwind-merge": "^3.0.2",
     "tailwindcss-animate": "^1.0.7"

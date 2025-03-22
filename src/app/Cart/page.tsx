@@ -17,6 +17,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import CheckoutButton from "@/components/CheckoutButton/CheckoutButton";
 
 const page = () => {
     const { state, fetchCart, clearCart } = useCart();
@@ -27,7 +28,7 @@ const page = () => {
 
     const clearCartProducts = async () => {
         if (user?.emailAddresses[0].emailAddress !== undefined) {
-            await clearCart(user?.emailAddresses[0].emailAddress, themes as "light" | "dark");
+            await clearCart(user?.emailAddresses[0].emailAddress, themes as "light" | "dark", true);
         }
     }
 
@@ -154,12 +155,7 @@ const page = () => {
                                             </div>
 
                                             <div className="flex justify-end">
-                                                <Button
-                                                    variant={"outline"}
-                                                    className="px-8 py-4 cursor-pointer rounded-sm"
-                                                >
-                                                    Checkout
-                                                </Button>
+                                                <CheckoutButton cart={state.cart} />
                                             </div>
                                         </div>
                                     </div>
@@ -170,7 +166,7 @@ const page = () => {
                 </div>
             </div>
         </section>
-    </>;
+    </>
 };
 
 export default page;

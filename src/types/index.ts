@@ -54,5 +54,5 @@ export interface ICartContext {
     fetchCart: (email: string | undefined) => Promise<void>;
     addProduct: (email: string | undefined, username: string | null | undefined, productId: string, theme: "light" | "dark") => Promise<void>;
     removeProduct: (email: string | undefined, productId: string, theme: "light" | "dark") => Promise<void>;
-    clearCart: (email: string | undefined, theme: "light" | "dark") => Promise<void>;
+    clearCart: (email: string | undefined, theme: "light" | "dark", allow: boolean) => Promise<void>;
 }

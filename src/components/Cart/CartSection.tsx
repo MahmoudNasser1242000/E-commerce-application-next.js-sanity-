@@ -6,6 +6,7 @@ import { X } from "lucide-react";
 import { ICart } from "@/types";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
+import CheckoutButton from "../CheckoutButton/CheckoutButton";
 
 interface IProps {
     cart: ICart | null;
@@ -71,12 +72,7 @@ const CartSection = ({ openCart, setOpenCart, cart }: IProps) => {
                                 View my cart ({cart.products.length || 0})
                             </Link>
 
-                            <a
-                                href="#"
-                                className="block rounded-sm bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600"
-                            >
-                                Checkout
-                            </a>
+                            {/* <CheckoutButton cart={cart} /> */}
                         </div>
                     </div>
                 )
