@@ -58,23 +58,41 @@ export const addProductToCart = async (email: string | undefined, username: stri
     }
 };
 
-export const deleteProductFromCart = async (email: string | undefined, projectId: string, theme: "light" | "dark" = "light") => {
+export const deleteProductFromCart = async (email: string | undefined, productId: string, theme: "light" | "dark" = "light") => {
     const cart = await getMyCart(email);
     if (!cart) {
         addToast("warn", "Cart not found", theme);
         return;
     } else {
-        const productExists = cart.products.find((product: IProducts) => product._id === projectId);
+        const productExists = cart.products.find((product: IProducts) => product._id === productId);
         if (!productExists) {
             addToast("warn", "Product not found in the cart", theme);
             return;
         }
 
-        const updatedProducts = cart.products.filter((product: IProducts) => product._id !== projectId);
-        const updatedCart = await client.patch(cart._id)
-        .set({ products: updatedProducts })
+        // const updatedProducts = cart.products.filter((product: IProducts) => product._id !== productId);
+
+        // Step 4: Execute the mutation transaction
+        await client
+        .patch(cart._id)
+        .unset([`products[_ref=="${productId}"]`]) // Unset the specific property
         .commit();
+        
         addToast("success", "Product removed successfully", theme);
-        return updatedCart as unknown as ICart;
     }
+}
+
+export const clearCartProducts = async (email:string | undefined, theme: "light" | "dark" = "light") => {
+    const cart = await getMyCart(email);
+    if (!cart) {
+        addToast("warn", "Cart not found", "light");
+        return;
+    }
+
+    await client
+        .patch(cart._id)
+        .set({ products: [] }) // Sets the products array to empty
+        .commit();
+
+    addToast("success", "Cart cleared successfully!", theme);
 }

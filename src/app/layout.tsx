@@ -8,6 +8,7 @@ import {
   ClerkProvider,
 } from '@clerk/nextjs'
 import { Bounce, ToastContainer } from 'react-toastify';
+import Cart from "@/context/Cart";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,21 +42,23 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Header />
-            {children}
-            <Footer />
-            <ToastContainer
-              position="bottom-right"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick={false}
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              transition={Bounce}
-            />
+            <Cart>
+              <Header />
+              {children}
+              <Footer />
+              <ToastContainer
+                position="bottom-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                transition={Bounce}
+              />
+            </Cart>
           </ThemeProvider>
         </ClerkProvider>
       </body>

@@ -1,31 +1,49 @@
 "use client";
 import DialogDelelteProduct from "@/components/Dialog/Dialog";
 import { Button } from "@/components/ui/button";
-import { getMyCart } from "@/lib/cart";
+import { useCart } from "@/context/Cart";
 import { urlFor } from "@/sanity/lib/image";
-import { ICart } from "@/types";
 import { useUser } from "@clerk/nextjs";
 import { ShoppingCartIcon } from "lucide-react";
+import { useTheme } from "next-themes";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 
 const page = () => {
-    const [cart, setCart] = useState<ICart | null>(null);
+    const { state, fetchCart, clearCart } = useCart();
     const { user } = useUser();
 
-    const getCart = async () => {
-        const cart = await getMyCart(user?.emailAddresses[0].emailAddress);        
-        setCart(cart)
+    const { theme, resolvedTheme } = useTheme();
+    const [themes, setTheme] = useState<string>("");
+
+    const clearCartProducts = async () => {
+        if (user?.emailAddresses[0].emailAddress !== undefined) {
+            await clearCart(user?.emailAddresses[0].emailAddress, themes as "light" | "dark");
+        }
     }
+
     useEffect(() => {
         if (user?.emailAddresses[0].emailAddress !== undefined) {
-            getCart()
+            fetchCart(user?.emailAddresses[0].emailAddress);
         }
     }, [user?.emailAddresses[0].emailAddress]);
 
-    console.log('====================================');
-    console.log(cart);
-    console.log('====================================');
+    useEffect(() => {
+        if (resolvedTheme === "dark") {
+            setTheme("dark")
+        } else {
+            setTheme("light")
+        }
+    }, [resolvedTheme]);
     return <>
         <section>
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 pt-34">
@@ -38,13 +56,13 @@ const page = () => {
                     </header>
 
                     {
-                        !cart || !cart.products?.length ? (
+                        !state.cart || !state.cart.products?.length ? (
                             <h2 className="px-6 py-8 text-2xl">Your cart is empty</h2>
                         ) : (
                             <div className="mt-8">
                                 <ul className="space-y-4">
                                     {
-                                        cart?.products?.map((product) => (
+                                        state.cart?.products?.map((product) => (
                                             <li className="flex items-center gap-4" key={product._id}>
                                                 <div className="overflow-hidden">
                                                     <Image
@@ -74,7 +92,7 @@ const page = () => {
 
                                                 <div className="flex flex-1 items-center justify-end gap-2">
                                                     <div className="text-gray-600 transition hover:text-red-600">
-                                                        <DialogDelelteProduct setCart={setCart} productId={product._id} />
+                                                        <DialogDelelteProduct productId={product._id} />
                                                     </div>
                                                 </div>
                                             </li>
@@ -83,41 +101,66 @@ const page = () => {
                                 </ul>
 
                                 <div className="mt-8 flex justify-end border-t border-gray-100/60 pt-8">
-                                    <div className="w-screen max-w-lg space-y-4">
-                                        <div className="flex justify-end">
-                                            <span
-                                                className="inline-flex items-center justify-center rounded-full bg-primary px-2.5 py-0.5 text-white"
-                                            >
-                                                <svg
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 24 24"
-                                                    strokeWidth="1.5"
-                                                    stroke="currentColor"
-                                                    className="-ms-1 me-1.5 size-4"
-                                                >
-                                                    <path
-                                                        strokeLinecap="round"
-                                                        strokeLinejoin="round"
-                                                        d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
-                                                    />
-                                                </svg>
-
-                                                <p className="text-lg font-bold font-mono whitespace-nowrap">
-                                                    Total: ${
-                                                        cart.products.reduce((acc, product) => acc + product.price, 0)
-                                                    }
-                                                </p>
-                                            </span>
+                                    <div className="w-screen flex items-center justify-between">
+                                        <div>
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    <Button
+                                                        className="px-8 py-4 cursor-pointer rounded-sm text-white"
+                                                    >
+                                                        Clear Cart
+                                                    </Button>
+                                                </DialogTrigger>
+                                                <DialogContent>
+                                                    <DialogHeader>
+                                                        <DialogTitle className="text-red-500">Clear Cart</DialogTitle>
+                                                        <DialogDescription>
+                                                            Are you absolutely sure? This action cannot be undone. This will permanently delete the product.
+                                                        </DialogDescription>
+                                                    </DialogHeader>
+                                                    <DialogFooter>
+                                                        <Button type="submit" className="text-white rounded-sm cursor-pointer" onClick={() => clearCartProducts()}>Confirm</Button>
+                                                    </DialogFooter>
+                                                </DialogContent>
+                                            </Dialog>
                                         </div>
 
-                                        <div className="flex justify-end">
-                                            <Button
-                                                variant={"outline"}
-                                                className="px-8 py-4 cursor-pointer rounded-sm"
-                                            >
-                                                Checkout
-                                            </Button>
+                                        <div className="space-y-4">
+                                            <div className="flex justify-end">
+                                                <span
+                                                    className="inline-flex items-center justify-center rounded-full bg-primary px-2.5 py-0.5 text-white"
+                                                >
+                                                    <svg
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        strokeWidth="1.5"
+                                                        stroke="currentColor"
+                                                        className="-ms-1 me-1.5 size-4"
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
+                                                        />
+                                                    </svg>
+
+                                                    <p className="text-lg font-bold font-mono whitespace-nowrap">
+                                                        Total: ${
+                                                            state.cart.products.reduce((acc, product) => acc + product.price, 0)
+                                                        }
+                                                    </p>
+                                                </span>
+                                            </div>
+
+                                            <div className="flex justify-end">
+                                                <Button
+                                                    variant={"outline"}
+                                                    className="px-8 py-4 cursor-pointer rounded-sm"
+                                                >
+                                                    Checkout
+                                                </Button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

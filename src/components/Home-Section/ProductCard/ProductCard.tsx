@@ -1,5 +1,6 @@
 "use client";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { useCart } from "@/context/Cart";
 import { addProductToCart } from "@/lib/cart";
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
@@ -13,7 +14,9 @@ import { useEffect, useState } from "react";
 const ProductCard = ({ product }: { product: IProducts }) => {
     const { theme, resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<"light" | "dark">();
-    const { user } = useUser()
+    const { user } = useUser();
+
+    const {addProduct} = useCart();
 
     useEffect(() => {
         if (resolvedTheme === "dark") {
@@ -23,7 +26,7 @@ const ProductCard = ({ product }: { product: IProducts }) => {
         }
     }, [resolvedTheme]);
     const addToCart = async () => {
-        await addProductToCart(user?.emailAddresses[0]?.emailAddress, user?.username, product._id, themes);
+        await addProduct(user?.emailAddresses[0]?.emailAddress, user?.username, product._id, themes as "light" | "dark");
     }
     return <>
         <div className="group h-[300px] rounded-sm">

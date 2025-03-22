@@ -1,5 +1,6 @@
 "use client";
 import { Button, buttonVariants } from "@/components/ui/button";
+import { useCart } from "@/context/Cart";
 import { addProductToCart } from "@/lib/cart";
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
@@ -15,6 +16,8 @@ const ProductDetails = ({ product }: { product: IProducts }) => {
     const [themes, setTheme] = useState<"light" | "dark">();
     const { user } = useUser()
 
+    const {addProduct} = useCart();
+
     useEffect(() => {
         if (resolvedTheme === "dark") {
             setTheme("dark")
@@ -24,7 +27,7 @@ const ProductDetails = ({ product }: { product: IProducts }) => {
     }, [resolvedTheme]);
 
     const addToCart = async () => {
-        await addProductToCart(user?.emailAddresses[0]?.emailAddress, user?.username, product._id, themes);
+        await addProduct(user?.emailAddresses[0]?.emailAddress, user?.username, product._id, themes as "light" | "dark");
     }
     return <>
         <section className="overflow-hidden mx-4 rounded-lg shadow-2xl dark:shadow-gray-700 md:grid md:grid-cols-3 mt-18">

@@ -15,26 +15,22 @@ import {
 import { Menu, ShoppingCart } from "lucide-react";
 import ModeToggle from "./DarkModeToggle";
 import { navLinks } from "@/constants/navLinks"
-import { ICart, INavLinks } from "@/types";
+import { INavLinks } from "@/types";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import { UserButton, useUser } from "@clerk/nextjs";
 import CartSection from "../Cart/CartSection";
-import { getMyCart } from "@/lib/cart";
+import { useCart } from "@/context/Cart";
 
 export default function Navbar() {
     const [open, setOpen] = useState<boolean>(false);
     const [openCart, setOpenCart] = useState<boolean>(false);
-    const [cart, setCart] = useState<ICart | null>(null);
 
     const { theme, resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<string>("");
     const { user } = useUser();
 
-    const getCart = async () => {
-        const cart = await getMyCart(user?.emailAddresses[0].emailAddress);
-        setCart(cart)
-    }
+    const {state, fetchCart} = useCart();
 
     useEffect(() => {
         if (resolvedTheme === "dark") {
@@ -45,11 +41,10 @@ export default function Navbar() {
     }, [resolvedTheme]);
 
     useEffect(() => {
-        if (user?.emailAddresses[0].emailAddress !== undefined) {
-            getCart()
+        if (user?.emailAddresses[0].emailAddress) {
+            fetchCart(user?.emailAddresses[0].emailAddress)
         }
     }, [user?.emailAddresses[0].emailAddress]);
-
     return (
         <nav className="fixed left-0 right-0 bg-white dark:bg-black py-1 nav z-1000">
             <div className="mx-auto flex justify-between h-16 max-w-screen-xl items-center px-4">
@@ -87,9 +82,9 @@ export default function Navbar() {
                                     <div className="relative hidden sm:block">
                                         <span onClick={() => setOpenCart(true)} className={ cn(buttonVariants({ variant: "ghost", size: "lg", className: "flex items-center gap-x-1 cursor-pointer"}))}>
                                             <ShoppingCart className="size-6" />
-                                            <span className="text-xl">({cart?.products?.length || 0})</span>
+                                            <span className="text-xl">({state?.cart?.products?.length || 0})</span>
                                         </span>
-                                        <CartSection cart={cart} openCart={openCart} setOpenCart={setOpenCart} />
+                                        <CartSection cart={state?.cart} openCart={openCart} setOpenCart={setOpenCart} />
                                     </div>
                                     <ModeToggle />
                                     <UserButton afterSwitchSessionUrl="/" />

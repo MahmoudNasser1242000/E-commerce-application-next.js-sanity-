@@ -11,19 +11,19 @@ import {
 import { Trash2 } from "lucide-react";
 import { Button, buttonVariants } from "../ui/button";
 import { cn } from "@/lib/utils";
-import { ICart } from "@/types";
-import { deleteProductFromCart } from "@/lib/cart";
 import { useUser } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
+import { useCart } from "@/context/Cart";
 
 interface IProps {
-    setCart: React.Dispatch<React.SetStateAction<ICart | null>>;
     productId: string;
 }
-const DialogDelelteProduct = ({setCart, productId}: IProps) => {
+const DialogDelelteProduct = ({productId}: IProps) => {
     const {user} = useUser();
     const { theme, resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<"light" | "dark">();
+
+    const {removeProduct} = useCart();
 
     useEffect(() => {
         if (resolvedTheme === "dark") {
@@ -34,10 +34,7 @@ const DialogDelelteProduct = ({setCart, productId}: IProps) => {
     }, [resolvedTheme]);
 
     const deleteProduct = async () => {
-        const cart = await deleteProductFromCart(user?.emailAddresses[0].emailAddress, productId, themes);
-        if (cart) {
-            setCart(cart)
-        }
+        await removeProduct(user?.emailAddresses[0].emailAddress, productId, themes as "light" | "dark");
     }
     return <>
         <Dialog>
