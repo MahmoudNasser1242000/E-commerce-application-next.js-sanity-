@@ -16,7 +16,7 @@ export async function POST(req: Request) {
         }
         const cart = await getMyCart(email);
 
-        if (!cart || cart.length === 0) {
+        if (!cart || cart.products.length === 0) {
             return NextResponse.json({ error: "Cart is empty" }, { status: 400 });
         }
 
@@ -41,6 +41,8 @@ export async function POST(req: Request) {
             mode: "payment",
             success_url: `http://localhost:3000/payment-confirm/${cart._id}`,
             cancel_url: `http://localhost:3000/Cart`,
+            customer_email: email,
+            metadata: { cartId: cart._id },
         });
 
         return NextResponse.json({ url: session.url });

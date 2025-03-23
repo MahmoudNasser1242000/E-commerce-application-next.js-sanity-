@@ -1,36 +1,7 @@
-"use client";
-import { useCart } from '@/context/Cart';
-import { useUser } from '@clerk/nextjs';
-import { useTheme } from 'next-themes';
 import Image from 'next/image'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
 
 function PaymentConfirm() {
-    const { theme, resolvedTheme } = useTheme();
-    const [themes, setTheme] = useState<string>("");
-    const { user } = useUser();
-
-    const { clearCart } = useCart();
-
-    const clearCartProducts = async () => {
-        if (user?.emailAddresses[0].emailAddress) {
-            await clearCart(user?.emailAddresses[0].emailAddress, themes as "light" | "dark", false);
-        }
-    }
-
-    useEffect(() => {
-        if (resolvedTheme === "dark") {
-            setTheme("dark")
-        } else {
-            setTheme("light")
-        }
-    }, [resolvedTheme]);
-
-    useEffect(() => {
-        clearCartProducts()
-    }, [user?.emailAddresses[0].emailAddress]);
-
     return (
         <div className='flex flex-col items-center justify-center px-5 pt-34 h-full mb-12'>
             <Image src='/images/verified.png'
