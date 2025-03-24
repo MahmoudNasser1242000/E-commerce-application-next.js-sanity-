@@ -10,7 +10,9 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
+import PaginationDemo from "@/components/Pagination/Pagination";
+import { useSearchParams } from "next/navigation";
 
 const page = () => {
     const [products, setProducts] = useState<IProducts[]>();
@@ -19,9 +21,20 @@ const page = () => {
     const [highPrice, setHighPrice] = useState<number>(0);
     const [categories, setCategories] = useState<string[]>([]);
     const [category, setCategory] = useState<string>("none");
+    const [total, setTotal] = useState<number>(0);
 
-    const getAllProducts = async (fromPrice: number, toPrice: number, category: string) => {
-        const products = await getProductsByPriceRange(fromPrice, toPrice, category);
+    const limit = 10;
+
+    const params = useSearchParams();
+    const page = Number(params.get("page"));
+
+    const getTotalProductsLength = async () => {
+        const products = await getProducts();
+        setTotal(products?.length)
+    }
+
+    const getAllProducts = async (fromPrice: number, toPrice: number, category: string, page: number) => {
+        const products = await getProductsByPriceRange(fromPrice, toPrice, category, page, limit);
         setProducts(products)
     }
     const getTotelProductsPrice = async () => {
@@ -36,13 +49,16 @@ const page = () => {
     }
 
     useEffect(() => {
-        getAllProducts(fromPrice, toPrice, category);
-    }, [fromPrice, toPrice, category]);
+        getAllProducts(fromPrice, toPrice, category, page);
+    }, [fromPrice, toPrice, category, page]);
     useEffect(() => {
         getTotelProductsPrice();
     }, []);
     useEffect(() => {
         getAllCategories();
+    }, []);
+    useEffect(() => {
+        getTotalProductsLength();
     }, []);
     return <div className="pt-34 container sm:mx-auto px-4">
         <div className="flex justify-between items-center flex-wrap px-4 gap-4">
@@ -69,6 +85,10 @@ const page = () => {
                     <ProductCard key={product._id} product={product} />
                 ))
             }
+        </div>
+
+        <div className="mt-52 flex justify-center items-center">
+            <PaginationDemo total={total / limit} page={page} />
         </div>
     </div>;
 };

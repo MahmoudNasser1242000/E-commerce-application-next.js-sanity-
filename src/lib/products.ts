@@ -38,9 +38,11 @@ export const getOneProduct = async (productId: string) => {
     return product as IProducts; // ✅ Returns a single product (not an array)
 };
 
-export const getProductsByPriceRange = async (minPrice: number, maxPrice: number, category: string) => {
+export const getProductsByPriceRange = async (minPrice: number, maxPrice: number, category: string, page: number = 1, limit: number = 10) => {
+    const start = (page - 1) * limit;
+    const end = (start + limit) - 1;
     const query = `
-        *[_type == "products" ${category === "none" ? "" : `&& category==$category`} && ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}] {
+        *[_type == "products" ${category === "none" ? "" : `&& category==$category`} && ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}] | order(_createdAt desc) [${start}..${end}] {
             _id, 
             title, 
             description, 

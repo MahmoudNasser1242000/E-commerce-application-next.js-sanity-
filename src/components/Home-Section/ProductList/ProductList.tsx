@@ -15,7 +15,7 @@ const ProductList = async () => {
             {products.slice(0, 4).map((product: IProducts) => <ProductCard key={product._id} product={product} />)}
         </div>
         <div className="flex justify-center items-center mt-44">
-            <Link href={"/Products"} className={cn(buttonVariants({ variant: "default", className: "px-8 py-5 rounded-sm text-white" }))}>
+            <Link href={"/Products?page=1"} className={cn(buttonVariants({ variant: "default", className: "px-8 py-5 rounded-sm text-white" }))}>
                 See More Products <span className="ml-2">→</span>
             </Link>
         </div>
