@@ -39,7 +39,7 @@ export interface ICart {
 
 //context
 export type TState = {
-    cart: ICart | null;
+    cart: ICart;
 };
 
 export type TAction =

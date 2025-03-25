@@ -10,7 +10,7 @@ export const getMyCart = async (email: string | undefined) => {
         products[]->{_id, title, description, price, image, instantDelivery, category}
     }[0]`;
     const cart = await client.fetch(query, { email });
-    return cart
+    return cart as ICart
 };
 
 export const addProductToCart = async (email: string | undefined, username: string | null | undefined, productId: string, theme: "light" | "dark" = "light") => {

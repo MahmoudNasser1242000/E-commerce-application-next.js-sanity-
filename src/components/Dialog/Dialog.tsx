@@ -18,12 +18,12 @@ import { useCart } from "@/context/Cart";
 interface IProps {
     productId: string;
 }
-const DialogDelelteProduct = ({productId}: IProps) => {
-    const {user} = useUser();
+const DialogDelelteProduct = ({ productId }: IProps) => {
+    const { user } = useUser();
     const { theme, resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<"light" | "dark">();
 
-    const {removeProduct} = useCart();
+    const { removeProduct } = useCart();
 
     useEffect(() => {
         if (resolvedTheme === "dark") {
@@ -38,10 +38,10 @@ const DialogDelelteProduct = ({productId}: IProps) => {
     }
     return <>
         <Dialog>
-            <DialogTrigger>
-                <span className={cn(buttonVariants({ variant: "ghost", className: "text-red-500 hover:text-red-400 cursor-pointer" }))}>
+            <DialogTrigger asChild>
+                <div className={cn(buttonVariants({ variant: "ghost", className: "text-red-500 hover:text-red-400 cursor-pointer" }))}>
                     <Trash2 className="size-5 cursor-pointer" />
-                </span>
+                </div>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
@@ -51,7 +51,9 @@ const DialogDelelteProduct = ({productId}: IProps) => {
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter>
-                    <Button type="submit" className="text-white rounded-sm cursor-pointer" onClick={() => deleteProduct()}>Confirm</Button>
+                    <div>
+                        <Button type="submit" className="text-white rounded-sm cursor-pointer" onClick={() => deleteProduct()}>Confirm</Button>
+                    </div>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

@@ -88,7 +88,7 @@ const page = () => {
         </div>
 
         <div className="mt-52 flex justify-center items-center">
-            <PaginationDemo total={total / limit} page={page} />
+            <PaginationDemo total={total / limit} page={page} type="Products" />
         </div>
     </div>;
 };
