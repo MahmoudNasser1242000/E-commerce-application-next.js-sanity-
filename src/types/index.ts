@@ -12,6 +12,12 @@ export interface ISocialMediaLinks {
     icon: LucideIcon
 }
 
+export interface IFormData {
+    username: string;
+    email: string;
+    message: string;
+}
+
 // schemas
 export interface IProducts {
     _id: string
