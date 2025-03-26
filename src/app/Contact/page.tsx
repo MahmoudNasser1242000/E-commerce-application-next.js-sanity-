@@ -1,5 +1,5 @@
 "use client"
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SectionTitle from "@/components/Section-Title/SectionTitle";
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -20,14 +20,49 @@ import { Textarea } from "@/components/ui/textarea";
 import { InferType } from "yup";
 import { Send } from "lucide-react";
 import { addToast } from "@/lib/toast";
+import { useTheme } from "next-themes";
 
 const Contact = () => {
+    const { theme, resolvedTheme } = useTheme();
+    const [themes, setTheme] = useState<string>("");
+
+    useEffect(() => {
+        if (resolvedTheme === "dark") {
+            setTheme("dark")
+        } else {
+            setTheme("light")
+        }
+    }, [resolvedTheme]);
+
     const form = useForm<InferType<typeof schema>>({
         resolver: yupResolver(schema),
+        defaultValues: {
+            username: "",  // Default to an empty string
+            email: "",
+            message: "",
+        },
     })
 
-    function onSubmit(data: IFormData) {
-        
+    async function onSubmit(data: IFormData) {
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+            },
+            body: JSON.stringify({
+                access_key: process.env.NEXT_PUBLIC_WEB3DORM_ACCESS_KEY,
+                name: data.username,
+                email: data.email,
+                message: data.username,
+            }),
+        });
+        const result = await response.json();
+        if (result.success) {
+            addToast("success", "Email has been sent successfully", themes as "light" | "dark");
+        } else {
+            addToast("warn", "Something went wrong!", themes as "light" | "dark");
+        }
     }
 
     return <div className="relative flex flex-col items-center justify-center px-6 sm:px-12 pt-38" id="contact">
@@ -45,8 +80,8 @@ const Contact = () => {
                         render={({ field }) => (
                             <FormItem className="w-full sm:w-[49%]">
                                 <FormLabel>User Name</FormLabel>
-                                <FormControl>
-                                    <Input placeholder={`username...`} {...field} className="py-5 px-4 rounded-sm" />
+                                <FormControl className="py-5 px-4 rounded-sm">
+                                    <Input placeholder={`username...`} {...field} />
                                 </FormControl>
                                 <FormDescription>
                                     {/* {form.formState.errors.username && <span>{form.formState.errors.username.message}</span>} */}
@@ -62,8 +97,8 @@ const Contact = () => {
                         render={({ field }) => (
                             <FormItem className="w-full sm:w-[49%]">
                                 <FormLabel>User Email</FormLabel>
-                                <FormControl>
-                                    <Input placeholder={`email...`} {...field} className="py-5 px-4 rounded-sm" />
+                                <FormControl className="py-5 px-4 rounded-sm">
+                                    <Input placeholder={`email...`} {...field} />
                                 </FormControl>
                                 <FormDescription>
                                     {/* {form.formState.errors.email && <span>{form.formState.errors.email.message}</span>} */}
@@ -79,8 +114,8 @@ const Contact = () => {
                         render={({ field }) => (
                             <FormItem className="w-full">
                                 <FormLabel>Message</FormLabel>
-                                <FormControl>
-                                    <Textarea placeholder={`Message...`} {...field} className="py-2 px-4 rounded-sm h-20" />
+                                <FormControl className="py-2 px-4 rounded-sm h-20">
+                                    <Textarea placeholder={`Message...`} {...field} />
                                 </FormControl>
                                 <FormDescription>
                                     {/* {form.formState.errors.message && <span>{form.formState.errors.message.message}</span>} */}
