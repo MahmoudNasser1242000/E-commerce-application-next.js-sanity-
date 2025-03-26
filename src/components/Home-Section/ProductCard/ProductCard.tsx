@@ -1,7 +1,6 @@
 "use client";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useCart } from "@/context/Cart";
-import { addProductToCart } from "@/lib/cart";
 import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { IProducts } from "@/types";

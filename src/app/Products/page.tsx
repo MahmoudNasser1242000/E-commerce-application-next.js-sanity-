@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import PaginationDemo from "@/components/Pagination/Pagination";
 import { useSearchParams } from "next/navigation";
+import ProductCardLoading from "@/components/ProductCardLoading/ProductCardLoading";
 
 const page = () => {
     const [products, setProducts] = useState<IProducts[]>();
@@ -81,9 +82,17 @@ const page = () => {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-34 mt-8">
             {
-                products?.map((product) => (
-                    <ProductCard key={product._id} product={product} />
-                ))
+                products ? (
+                    products.length ? (
+                        products?.map((product) => (
+                            <ProductCard key={product._id} product={product} />
+                        ))
+                    ) : (
+                        <h2 className="px-6 py-8 text-2xl">Your cart is empty</h2>
+                    )
+                ) : (
+                    Array.from({ length: 4 }, (_, index) => <ProductCardLoading key={index} />)
+                )
             }
         </div>
 
