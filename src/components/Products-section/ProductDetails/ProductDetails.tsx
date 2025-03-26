@@ -1,14 +1,13 @@
 "use client";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/Cart";
-import { addProductToCart } from "@/lib/cart";
-import { cn } from "@/lib/utils";
 import { urlFor } from "@/sanity/lib/image";
 import { IProducts } from "@/types";
 import { useUser } from "@clerk/nextjs";
 import { BadgeCheck, OctagonX, ShoppingCart } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const ProductDetails = ({ product }: { product: IProducts }) => {
@@ -17,6 +16,8 @@ const ProductDetails = ({ product }: { product: IProducts }) => {
     const { user } = useUser()
 
     const {addProduct} = useCart();
+
+    const router = useRouter();
 
     useEffect(() => {
         if (resolvedTheme === "dark") {
@@ -27,10 +28,14 @@ const ProductDetails = ({ product }: { product: IProducts }) => {
     }, [resolvedTheme]);
 
     const addToCart = async () => {
-        await addProduct(user?.emailAddresses[0]?.emailAddress, user?.username, product._id, themes as "light" | "dark");
+        if (user) {
+            await addProduct(user?.emailAddresses[0]?.emailAddress, user?.username, product._id, themes as "light" | "dark");
+        } else {
+            router.push("/sign-in")
+        }
     }
     return <>
-        <section className="overflow-hidden mx-4 rounded-lg shadow-2xl dark:shadow-gray-700 md:grid md:grid-cols-3 mt-18">
+        <section className="overflow-hidden mx-4 rounded-lg shadow-2xl dark:shadow-gray-700 md:grid md:grid-cols-3 my-18">
             <div className="overflow-hidden">
                 <Image
                     alt={product.title}
@@ -60,7 +65,7 @@ const ProductDetails = ({ product }: { product: IProducts }) => {
                 </p>
 
                 <Button
-                    onClick={() => addToCart()}
+                    onClick={() => {user? addToCart() : router.push("/sign-in")}}
                     className={"flex w-full text-lg py-6 text-white rounded-sm my-6 cursor-pointer"}
                 >
                     <span>Add To Your Cart</span>

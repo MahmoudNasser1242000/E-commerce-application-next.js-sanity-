@@ -8,6 +8,7 @@ import { useUser } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const ProductCard = ({ product }: { product: IProducts }) => {
@@ -17,6 +18,8 @@ const ProductCard = ({ product }: { product: IProducts }) => {
 
     const {addProduct} = useCart();
 
+    const router = useRouter();
+
     useEffect(() => {
         if (resolvedTheme === "dark") {
             setTheme("dark")
@@ -25,7 +28,11 @@ const ProductCard = ({ product }: { product: IProducts }) => {
         }
     }, [resolvedTheme]);
     const addToCart = async () => {
-        await addProduct(user?.emailAddresses[0]?.emailAddress, user?.username, product._id, themes as "light" | "dark");
+        if (user) {
+            await addProduct(user?.emailAddresses[0]?.emailAddress, user?.username, product._id, themes as "light" | "dark");
+        } else {
+            router.push("/sign-in")
+        }
     }
     return <>
         <div className="group h-[300px] rounded-sm">

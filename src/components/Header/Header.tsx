@@ -30,7 +30,7 @@ export default function Navbar() {
     const [themes, setTheme] = useState<string>("");
     const { user } = useUser();
 
-    const {state, fetchCart} = useCart();
+    const { state, fetchCart } = useCart();
 
     useEffect(() => {
         if (resolvedTheme === "dark") {
@@ -80,7 +80,7 @@ export default function Navbar() {
                             <div className="flex items-center space-x-2">
                                 <div className="flex items-center gap-x-4">
                                     <div className="relative hidden sm:block">
-                                        <span onClick={() => setOpenCart(true)} className={ cn(buttonVariants({ variant: "ghost", size: "lg", className: "flex items-center gap-x-1 cursor-pointer"}))}>
+                                        <span onClick={() => setOpenCart(true)} className={cn(buttonVariants({ variant: "ghost", size: "lg", className: "flex items-center gap-x-1 cursor-pointer" }))}>
                                             <ShoppingCart className="size-6" />
                                             <span className="text-xl">({state?.cart?.products?.length || 0})</span>
                                         </span>
@@ -130,15 +130,28 @@ export default function Navbar() {
                             </div>
                         </>
                     ) : (
-                        <div className="flex items-center gap-4">
-                            <ModeToggle />
-                            <Link href={`/sign-in`} className={cn(buttonVariants({ variant: "default", className: "px-5 py-2 rounded-sm text-white" }))}>
-                                Sign In
-                            </Link>
-                            <Link href={`/sign-up`} className={cn(buttonVariants({ variant: "outline", className: "px-5 py-2 rounded-sm" }))}>
-                                Sign Up
-                            </Link>
-                        </div>
+                        <>
+                            <div className="mx-auto hidden space-x-6 md:flex">
+                                {navLinks.filter(({label}: {label: string}) => label !== "Cart").map(({ href, label }: INavLinks) => (
+                                    <Link
+                                        key={href}
+                                        href={href}
+                                        className="text-md font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                                    >
+                                        {label}
+                                    </Link>
+                                ))}
+                            </div>
+                            <div className="flex items-center gap-4">
+                                <ModeToggle />
+                                <Link href={`/sign-in`} className={cn(buttonVariants({ variant: "default", className: "px-5 py-2 rounded-sm text-white" }))}>
+                                    Sign In
+                                </Link>
+                                <Link href={`/sign-up`} className={cn(buttonVariants({ variant: "outline", className: "px-5 py-2 rounded-sm" }))}>
+                                    Sign Up
+                                </Link>
+                            </div>
+                        </>
                     )}
             </div>
         </nav >
