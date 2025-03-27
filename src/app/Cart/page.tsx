@@ -7,7 +7,7 @@ import { useUser } from "@clerk/nextjs";
 import { ShoppingCartIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
     Dialog,
     DialogContent,
