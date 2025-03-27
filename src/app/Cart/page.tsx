@@ -1,7 +1,8 @@
 import CartPageContent from "@/components/Cart/CartPageContent/CartPageContent";
 
-export default function Cart({ searchParams }: { searchParams: { page: string } }) {
-    const page = Number(searchParams.page) || 1;
+type TParams = Promise<{page: string}>
+export default async function Cart({ searchParams }: { searchParams: TParams }) {
+    const page = Number((await searchParams).page) || 1;
 
     return (
         <>
