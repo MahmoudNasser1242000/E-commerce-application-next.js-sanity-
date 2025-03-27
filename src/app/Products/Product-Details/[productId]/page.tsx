@@ -6,7 +6,7 @@ import React from "react";
 
 export async function generateStaticParams() {
     const products = await getProducts();
-    return products.map((product) => [{ productId: product._id }])
+    return products.map((product) => ({ productId: product._id }));
 }
 const ProductDetailsPage = async ({params}: {params: {productId:string}}) => {
     const product = await getOneProduct(params.productId)
