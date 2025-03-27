@@ -132,7 +132,7 @@ export default function Navbar() {
                     ) : (
                         <>
                             <div className="mx-auto hidden space-x-6 md:flex">
-                                {navLinks.filter(({label}: {label: string}) => label !== "Cart").map(({ href, label }: INavLinks) => (
+                                {navLinks.filter(({ label }: { label: string }) => label !== "Cart").map(({ href, label }: INavLinks) => (
                                     <Link
                                         key={href}
                                         href={href}
