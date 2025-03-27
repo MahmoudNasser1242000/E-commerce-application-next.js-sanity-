@@ -8,7 +8,7 @@ export async function generateStaticParams() {
     const products = await getProducts();
     return products.map((product) => [{ productId: product._id }])
 }
-const page = async ({params}: {params: {productId:string}}) => {
+const ProductDetailsPage = async ({params}: {params: {productId:string}}) => {
     const product = await getOneProduct(params.productId)
     return <div className="pt-34 container mx-auto">
         <Devider productTitle={product.title} />
@@ -16,4 +16,4 @@ const page = async ({params}: {params: {productId:string}}) => {
     </div>;
 };
 
-export default page;
+export default ProductDetailsPage;

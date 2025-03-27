@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/Cart";
 import { urlFor } from "@/sanity/lib/image";
@@ -11,7 +12,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const ProductDetails = ({ product }: { product: IProducts }) => {
-    const { theme, resolvedTheme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<"light" | "dark">();
     const { user } = useUser()
 

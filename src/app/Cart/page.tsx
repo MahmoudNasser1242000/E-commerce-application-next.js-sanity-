@@ -23,7 +23,7 @@ import { useSearchParams } from "next/navigation";
 import CartPageItemSkeleton from "@/components/Cart/CartPageItemLoading/CartPageItemSkeleton";
 import Link from "next/link";
 
-const page = () => {
+const Cart = () => {
     const limit = 5;
 
     const { state, fetchCart, clearCart } = useCart();
@@ -211,4 +211,4 @@ const page = () => {
     </>
 };
 
-export default page;
+export default Cart;
