@@ -79,7 +79,7 @@ const page = () => {
                                     state.cart.products.length ? (
                                         state.cart.products.slice(start, (start + limit)).map((product) => (
                                             <li className="flex items-center gap-4" key={product._id}>
-                                                <div className="overflow-hidden relative">
+                                                <div className="overflow-hidden">
                                                     <Image
                                                         src={urlFor(product.image).url()}
                                                         width={800}
@@ -89,7 +89,7 @@ const page = () => {
                                                     />
                                                 </div>
 
-                                                <div>
+                                                <div className="flex-1">
                                                     <h3 className="text-xl line-clamp-1">{product.title}</h3>
 
                                                     <dl className="mt-0.5 space-y-px text-[12px]">
@@ -105,7 +105,7 @@ const page = () => {
                                                     </dl>
                                                 </div>
 
-                                                <div className="flex flex-1 items-center justify-end gap-2">
+                                                <div className="flex items-center justify-end gap-2">
                                                     <div className="text-gray-600 transition hover:text-red-600">
                                                         <DialogDelelteProduct productId={product._id} />
                                                     </div>
