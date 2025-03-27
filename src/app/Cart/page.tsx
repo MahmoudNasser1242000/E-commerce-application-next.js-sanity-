@@ -29,7 +29,7 @@ const Cart = () => {
     const { state, fetchCart, clearCart } = useCart();
     const { user } = useUser();
 
-    const { theme, resolvedTheme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<string>("");
     const [start, setStart] = useState<number>(0);
     // const [end, setEnd] = useState<number>(limit);

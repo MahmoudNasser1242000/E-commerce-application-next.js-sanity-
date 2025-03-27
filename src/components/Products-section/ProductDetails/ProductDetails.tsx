@@ -66,7 +66,7 @@ const ProductDetails = ({ product }: { product: IProducts }) => {
                 </p>
 
                 <Button
-                    onClick={() => {user? addToCart() : router.push("/sign-in")}}
+                    onClick={() => addToCart()}
                     className={"flex w-full text-lg py-6 text-white rounded-sm my-6 cursor-pointer"}
                 >
                     <span>Add To Your Cart</span>
