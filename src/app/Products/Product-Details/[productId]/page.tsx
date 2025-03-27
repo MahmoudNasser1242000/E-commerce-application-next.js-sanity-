@@ -4,7 +4,7 @@ import ProductDetails from "@/components/Products-section/ProductDetails/Product
 import { getOneProduct, getProducts } from "@/lib/products";
 import React from "react";
 
-interface PageProps<TParams = {}> {
+interface PageProps<TParams> {
     params: TParams;
 }
 export async function generateStaticParams() {
