@@ -7,7 +7,7 @@ import { useUser } from "@clerk/nextjs";
 import { ShoppingCartIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import {
     Dialog,
     DialogContent,
@@ -60,7 +60,7 @@ const Cart = () => {
     useEffect(() => {
         setStart((page - 1) * limit);
     }, [page]);
-    return <>
+    return <Suspense>
         <section>
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 pt-34">
                 <div className="mx-auto max-w-3xl">
@@ -208,7 +208,7 @@ const Cart = () => {
                 )
             }
         </section>
-    </>
+    </Suspense>
 };
 
 export default Cart;
