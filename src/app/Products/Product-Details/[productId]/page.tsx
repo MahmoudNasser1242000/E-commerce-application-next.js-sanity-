@@ -3,15 +3,16 @@ import ProductDetailsSkeleton from "@/components/Products-section/ProductDetails
 import ProductDetails from "@/components/Products-section/ProductDetails/ProductDetails";
 import { getOneProduct, getProducts } from "@/lib/products";
 import React from "react";
-
-interface PageProps<TParams> {
-    params: TParams;
+interface PageProps {
+    params: {
+        productId: string
+    }
 }
 export async function generateStaticParams() {
     const products = await getProducts();
     return products.map((product) => ({ productId: product._id }));
 }
-const ProductDetailsPage = async ({ params }: PageProps<{ productId: string }>) => {
+const ProductDetailsPage = async ({ params }: PageProps) => {
     const product = await getOneProduct(params.productId)
     return <div className="pt-34 container mx-auto">
         <Devider productTitle={product.title} />
