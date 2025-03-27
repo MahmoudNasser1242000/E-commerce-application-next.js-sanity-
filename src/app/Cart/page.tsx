@@ -21,6 +21,7 @@ import CheckoutButton from "@/components/CheckoutButton/CheckoutButton";
 import PaginationDemo from "@/components/Pagination/Pagination";
 import { useSearchParams } from "next/navigation";
 import CartPageItemSkeleton from "@/components/Cart/CartPageItemLoading/CartPageItemSkeleton";
+import Link from "next/link";
 
 const page = () => {
     const limit = 5;
@@ -80,17 +81,23 @@ const page = () => {
                                         state.cart.products.slice(start, (start + limit)).map((product) => (
                                             <li className="flex items-center gap-4" key={product._id}>
                                                 <div className="overflow-hidden">
-                                                    <Image
-                                                        src={urlFor(product.image).url()}
-                                                        width={800}
-                                                        height={800}
-                                                        alt={product.title}
-                                                        className="size-28 rounded-sm object-cover transition duration-500 hover:scale-105"
-                                                    />
+                                                    <Link href={`/Products/Product-Details/${product._id}`}>
+                                                        <Image
+                                                            src={urlFor(product.image).url()}
+                                                            width={800}
+                                                            height={800}
+                                                            alt={product.title}
+                                                            className="size-28 rounded-sm object-cover transition duration-500 hover:scale-105"
+                                                        />
+                                                    </Link>
                                                 </div>
 
                                                 <div className="flex-1">
-                                                    <h3 className="text-xl line-clamp-1">{product.title}</h3>
+                                                    <h3 className="text-xl line-clamp-1">
+                                                        <Link href={`/Products/Product-Details/${product._id}`}>
+                                                            {product.title}
+                                                        </Link>
+                                                    </h3>
 
                                                     <dl className="mt-0.5 space-y-px text-[12px]">
                                                         <div className="space-x-1">

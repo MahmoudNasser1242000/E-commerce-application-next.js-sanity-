@@ -54,7 +54,7 @@ const Contact = () => {
                 access_key: process.env.NEXT_PUBLIC_WEB3DORM_ACCESS_KEY,
                 name: data.username,
                 email: data.email,
-                message: data.username,
+                message: data.message,
             }),
         });
         const result = await response.json();
