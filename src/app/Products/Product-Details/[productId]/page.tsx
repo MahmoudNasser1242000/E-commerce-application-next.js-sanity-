@@ -1,5 +1,5 @@
 import Devider from "@/components/Devider/Devider";
-import ProductDetailsSkeleton from "@/components/ProductDetailsLoading/ProductDetailsLoading";
+import ProductDetailsSkeleton from "@/components/Products-section/ProductDetailsLoading/ProductDetailsLoading";
 import ProductDetails from "@/components/Products-section/ProductDetails/ProductDetails";
 import { getOneProduct, getProducts } from "@/lib/products";
 import React from "react";

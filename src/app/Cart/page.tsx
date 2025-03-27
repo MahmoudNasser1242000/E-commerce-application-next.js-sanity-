@@ -57,7 +57,6 @@ const page = () => {
 
     useEffect(() => {
         setStart((page - 1) * limit);
-        setEnd((start + limit) - 1)
     }, [page, start]);
     return <>
         <section>
@@ -77,7 +76,7 @@ const page = () => {
                             <div className="mt-8">
                                 <ul className="space-y-4">
                                     {
-                                        state.cart?.products?.slice(start, end).map((product) => (
+                                        state.cart?.products?.slice(start, (start + limit)).map((product) => (
                                             <li className="flex items-center gap-4" key={product._id}>
                                                 <div className="overflow-hidden">
                                                     <Image

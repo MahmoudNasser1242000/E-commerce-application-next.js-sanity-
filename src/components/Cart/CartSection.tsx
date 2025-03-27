@@ -7,6 +7,7 @@ import { ICart } from "@/types";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import CheckoutButton from "../CheckoutButton/CheckoutButton";
+import CartItemSkeleton from "./CartSectionItemLoading/CartItemSkeleton";
 
 interface IProps {
     cart: ICart | null;
@@ -28,54 +29,60 @@ const CartSection = ({ openCart, setOpenCart, cart }: IProps) => {
             </Button>
 
             {
-                !cart || !cart?.products?.length ? (
-                    <h2 className="px-6 py-4 text-2xl">Your cart is empty</h2>
-                ) : (
-                    <div className="mt-4 space-y-6 text-gray-700 dark:text-gray-200">
-                        <ul className="space-y-4 mt-8">
-                            {
-                                cart.products?.slice(0, 3).map((product) => (
-                                    <li key={product._id} className={cn(buttonVariants({ variant: "ghost", className: "flex items-center justify-start w-full gap-4 h-fit" }))}>
-                                        <Image
-                                            src={urlFor(product.image).url()}
-                                            width={800}
-                                            height={800}
-                                            alt={product.title}
-                                            className="size-16 rounded-sm object-cover"
-                                        />
 
-                                        <div>
-                                            <h3 className="text-sm line-clamp-1">{product.title}</h3>
+                <div className="mt-4 space-y-6 text-gray-700 dark:text-gray-200">
+                    <ul className="space-y-4 mt-8">
+                        {
+                            cart ? (
+                                !cart.products.length ? (
+                                    <h2 className="px-6 py-4 text-2xl">Your cart is empty</h2>
+                                ) : (
+                                    cart.products?.slice(0, 3).map((product) => (
+                                        <li key={product._id} className={cn(buttonVariants({ variant: "ghost", className: "flex items-center justify-start w-full gap-4 h-fit" }))}>
+                                            <Image
+                                                src={urlFor(product.image).url()}
+                                                width={800}
+                                                height={800}
+                                                alt={product.title}
+                                                className="size-16 rounded-sm object-cover"
+                                            />
 
-                                            <dl className="mt-0.5 space-y-px text-[10px]">
-                                                <div className="space-x-1">
-                                                    <dt className="inline">Price:</dt>
-                                                    <dd className="inline text-gray-500 dark:text-gray-400">${product.price}</dd>
-                                                </div>
+                                            <div>
+                                                <h3 className="text-sm line-clamp-1">{product.title}</h3>
 
-                                                <div className="space-x-1">
-                                                    <dt className="inline">Category:</dt>
-                                                    <dd className="inline text-gray-500 dark:text-gray-400">{product.category}</dd>
-                                                </div>
-                                            </dl>
-                                        </div>
-                                    </li>
-                                ))
-                            }
-                        </ul>
+                                                <dl className="mt-0.5 space-y-px text-[10px]">
+                                                    <div className="space-x-1">
+                                                        <dt className="inline">Price:</dt>
+                                                        <dd className="inline text-gray-500 dark:text-gray-400">${product.price}</dd>
+                                                    </div>
 
-                        <div className="space-y-4 text-center">
-                            <Link
-                                href="/Cart"
-                                className={cn(buttonVariants({ variant: "ghost", className: "rounded-sm border w-full px-5 py-6 text-sm transition hover:ring-1" }))}
-                            >
-                                View my cart ({cart.products.length || 0})
-                            </Link>
+                                                    <div className="space-x-1">
+                                                        <dt className="inline">Category:</dt>
+                                                        <dd className="inline text-gray-500 dark:text-gray-400">{product.category}</dd>
+                                                    </div>
+                                                </dl>
+                                            </div>
+                                        </li>
+                                    ))
+                                )
+                            ) : (
+                                Array.from({ length: 3 }, (_, index) => <CartItemSkeleton key={index} />)
+                            )
+                        }
+                    </ul>
 
-                            {/* <CheckoutButton cart={cart} /> */}
-                        </div>
+                    <div className="space-y-4 text-center">
+                        <Link
+                            href="/Cart"
+                            className={cn(buttonVariants({ variant: "ghost", className: "rounded-sm border w-full px-5 py-6 text-sm transition hover:ring-1" }))}
+                        >
+                            View my cart ({cart?.products.length || 0})
+                        </Link>
+
+                        {/* <CheckoutButton cart={cart} /> */}
                     </div>
-                )
+                </div>
+
             }
         </div>
     </>;
