@@ -47,7 +47,7 @@ const page = () => {
         if (user?.emailAddresses[0].emailAddress !== undefined) {
             fetchCart(user?.emailAddresses[0].emailAddress);
         }
-    }, [user?.emailAddresses[0].emailAddress]);
+    }, [user?.emailAddresses, fetchCart]);
 
     useEffect(() => {
         if (resolvedTheme === "dark") {
@@ -59,7 +59,7 @@ const page = () => {
 
     useEffect(() => {
         setStart((page - 1) * limit);
-    }, [page, start]);
+    }, [page]);
     return <>
         <section>
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 pt-34">

@@ -1,6 +1,6 @@
 "use client";
 import { addProductToCart, clearCartProducts, deleteProductFromCart, getMyCart } from "@/lib/cart";
-import { ICart, ICartContext, TAction, TState } from "@/types";
+import { ICartContext, TAction, TState } from "@/types";
 import React, { useReducer } from "react";
 
 const cartContect = React.createContext<ICartContext>(
@@ -37,7 +37,7 @@ const Cart = ({children}: {children: React.ReactNode}) => {
     }
     const removeProduct = async (email: string | undefined, productId: string, theme: "light" | "dark" = "light") => {
         if (email) {
-            const cart = await deleteProductFromCart(email, productId, theme);
+            await deleteProductFromCart(email, productId, theme);
             const updatedCart = await getMyCart(email);
             dispatch({ type: "REMOVE_FROM_CART", payload: updatedCart });
         }

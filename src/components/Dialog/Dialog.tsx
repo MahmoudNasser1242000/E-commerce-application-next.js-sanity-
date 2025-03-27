@@ -20,7 +20,7 @@ interface IProps {
 }
 const DialogDelelteProduct = ({ productId }: IProps) => {
     const { user } = useUser();
-    const { theme, resolvedTheme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<"light" | "dark">();
 
     const { removeProduct } = useCart();

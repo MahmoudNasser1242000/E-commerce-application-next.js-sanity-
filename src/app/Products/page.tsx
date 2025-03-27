@@ -15,7 +15,7 @@ import PaginationDemo from "@/components/Pagination/Pagination";
 import { useSearchParams } from "next/navigation";
 import ProductCardLoading from "@/components/ProductCardLoading/ProductCardLoading";
 
-const page = () => {
+const Products = () => {
     const [products, setProducts] = useState<IProducts[]>();
     const [fromPrice, setFromPrice] = useState<number>(0);
     const [toPrice, setToPrice] = useState<number>(0);
@@ -102,4 +102,4 @@ const page = () => {
     </div>;
 };
 
-export default page;
+export default Products;

@@ -1,4 +1,5 @@
 "use client";
+
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useCart } from "@/context/Cart";
 import { cn } from "@/lib/utils";
@@ -12,7 +13,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const ProductCard = ({ product }: { product: IProducts }) => {
-    const { theme, resolvedTheme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<"light" | "dark">();
     const { user } = useUser();
 
@@ -60,7 +61,7 @@ const ProductCard = ({ product }: { product: IProducts }) => {
 
                 <div className="mt-4 flex justify-center gap-4">
                     <Button
-                        onClick={() =>addToCart()}
+                        onClick={() => addToCart()}
                         className={"w-[50%] cursor-pointer rounded-sm bg-gray-100 hover:bg-gray-100 px-4 py-3 text-sm font-medium text-gray-900 transition hover:scale-105"}
                     >
                         Add to Cart

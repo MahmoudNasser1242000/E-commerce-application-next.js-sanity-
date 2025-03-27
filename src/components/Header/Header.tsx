@@ -26,7 +26,7 @@ export default function Navbar() {
     const [open, setOpen] = useState<boolean>(false);
     const [openCart, setOpenCart] = useState<boolean>(false);
 
-    const { theme, resolvedTheme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<string>("");
     const { user } = useUser();
 
@@ -44,7 +44,7 @@ export default function Navbar() {
         if (user?.emailAddresses[0].emailAddress) {
             fetchCart(user?.emailAddresses[0].emailAddress)
         }
-    }, [user?.emailAddresses[0].emailAddress]);
+    }, [user?.emailAddresses, fetchCart]);
     return (
         <nav className="fixed left-0 right-0 bg-white dark:bg-black py-1 nav z-1000">
             <div className="mx-auto flex justify-between h-16 max-w-screen-xl items-center px-4">

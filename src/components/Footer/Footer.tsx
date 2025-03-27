@@ -16,7 +16,7 @@ import { useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 
 const Footer = () => {
-    const { theme, resolvedTheme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<string>("");
     const [pathValid, setPathValid] = useState<boolean>();
     const {user} = useUser();

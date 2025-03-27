@@ -23,7 +23,7 @@ import { addToast } from "@/lib/toast";
 import { useTheme } from "next-themes";
 
 const Contact = () => {
-    const { theme, resolvedTheme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<string>("");
 
     useEffect(() => {

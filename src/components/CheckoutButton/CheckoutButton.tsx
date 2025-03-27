@@ -7,7 +7,7 @@ import { useTheme } from "next-themes";
 
 export default function CheckoutButton({ cart }: { cart: ICart }) {
     const [loading, setLoading] = useState(false);
-    const { theme, resolvedTheme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<string>("");
 
     const { clearCart } = useCart();
