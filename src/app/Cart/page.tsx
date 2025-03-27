@@ -35,7 +35,7 @@ const Cart = () => {
     // const [end, setEnd] = useState<number>(limit);
 
     const params = useSearchParams();
-    const page = Number(params.get("page"));
+    const page = Number(params.get("page")) || 1;
 
     const clearCartProducts = async () => {
         if (user?.emailAddresses[0].emailAddress !== undefined) {
