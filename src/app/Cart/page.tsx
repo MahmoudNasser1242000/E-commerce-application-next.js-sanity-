@@ -20,6 +20,7 @@ import {
 import CheckoutButton from "@/components/CheckoutButton/CheckoutButton";
 import PaginationDemo from "@/components/Pagination/Pagination";
 import { useSearchParams } from "next/navigation";
+import CartPageItemSkeleton from "@/components/Cart/CartPageItemLoading/CartPageItemSkeleton";
 
 const page = () => {
     const limit = 5;
@@ -30,7 +31,7 @@ const page = () => {
     const { theme, resolvedTheme } = useTheme();
     const [themes, setTheme] = useState<string>("");
     const [start, setStart] = useState<number>(0);
-    const [end, setEnd] = useState<number>(limit);
+    // const [end, setEnd] = useState<number>(limit);
 
     const params = useSearchParams();
     const page = Number(params.get("page"));
@@ -69,14 +70,14 @@ const page = () => {
                         </h1>
                     </header>
 
-                    {
-                        !state.cart || !state.cart.products?.length ? (
-                            <h2 className="px-6 py-8 text-2xl">Your cart is empty</h2>
-                        ) : (
-                            <div className="mt-8">
-                                <ul className="space-y-4">
-                                    {
-                                        state.cart?.products?.slice(start, (start + limit)).map((product) => (
+
+
+                    <div className="mt-8">
+                        <ul className="space-y-4">
+                            {
+                                state.cart ? (
+                                    state.cart.products.length ? (
+                                        state.cart.products.slice(start, (start + limit)).map((product) => (
                                             <li className="flex items-center gap-4" key={product._id}>
                                                 <div className="overflow-hidden">
                                                     <Image
@@ -111,9 +112,17 @@ const page = () => {
                                                 </div>
                                             </li>
                                         ))
-                                    }
-                                </ul>
+                                    ) : (
+                                        <h2 className="px-6 py-8 text-2xl">Your cart is empty</h2>
+                                    )
+                                ) : (
+                                    Array.from({ length: 4 }, (_, index) => <CartPageItemSkeleton key={index} />)
+                                )
+                            }
+                        </ul>
 
+                        {
+                            state.cart && (
                                 <div className="mt-8 flex justify-end border-t border-gray-100/60 pt-8">
                                     <div className="w-screen flex items-center justify-between">
                                         <div>
@@ -165,7 +174,7 @@ const page = () => {
 
                                                     <p className="text-lg font-bold font-mono whitespace-nowrap">
                                                         Total: ${
-                                                            state.cart.products.reduce((acc, product) => acc + product.price, 0).toFixed(2)
+                                                            state.cart.products?.reduce((acc, product) => acc + product.price, 0).toFixed(2)
                                                         }
                                                     </p>
                                                 </span>
@@ -177,15 +186,20 @@ const page = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        )
-                    }
+                            )
+                        }
+                    </div>
+
                 </div>
             </div>
 
-            <div className="mt-52 flex justify-center items-center">
-                <PaginationDemo total={state.cart?.products?.length / limit} page={page} type="Cart" />
-            </div>
+            {
+                state.cart && (
+                    <div className="mt-52 flex justify-center items-center">
+                        <PaginationDemo total={state.cart.products.length / limit} page={page} type="Cart" />
+                    </div>
+                )
+            }
         </section>
     </>
 };

@@ -6,7 +6,6 @@ import { X } from "lucide-react";
 import { ICart } from "@/types";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
-import CheckoutButton from "../CheckoutButton/CheckoutButton";
 import CartItemSkeleton from "./CartSectionItemLoading/CartItemSkeleton";
 
 interface IProps {

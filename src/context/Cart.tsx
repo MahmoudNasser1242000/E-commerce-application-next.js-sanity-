@@ -1,6 +1,6 @@
 "use client";
 import { addProductToCart, clearCartProducts, deleteProductFromCart, getMyCart } from "@/lib/cart";
-import { ICartContext, TAction, TState } from "@/types";
+import { ICart, ICartContext, TAction, TState } from "@/types";
 import React, { useReducer } from "react";
 
 const cartContect = React.createContext<ICartContext>(
