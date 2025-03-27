@@ -79,7 +79,7 @@ const page = () => {
                                     state.cart.products.length ? (
                                         state.cart.products.slice(start, (start + limit)).map((product) => (
                                             <li className="flex items-center gap-4" key={product._id}>
-                                                <div className="overflow-hidden">
+                                                <div className="overflow-hidden relative">
                                                     <Image
                                                         src={urlFor(product.image).url()}
                                                         width={800}
@@ -90,7 +90,7 @@ const page = () => {
                                                 </div>
 
                                                 <div>
-                                                    <h3 className="text-xl">{product.title}</h3>
+                                                    <h3 className="text-xl line-clamp-1">{product.title}</h3>
 
                                                     <dl className="mt-0.5 space-y-px text-[12px]">
                                                         <div className="space-x-1">
@@ -124,7 +124,7 @@ const page = () => {
                         {
                             state.cart && (
                                 <div className="mt-8 flex justify-end border-t border-gray-100/60 pt-8">
-                                    <div className="w-screen flex items-center justify-between">
+                                    <div className="w-screen flex items-end justify-between">
                                         <div>
                                             <Dialog>
                                                 <DialogTrigger asChild>
@@ -152,7 +152,7 @@ const page = () => {
                                             </Dialog>
                                         </div>
 
-                                        <div className="space-y-4">
+                                        <div className="space-y-5">
                                             <div className="flex justify-end">
                                                 <span
                                                     className="inline-flex items-center justify-center rounded-full bg-primary px-2.5 py-0.5 text-white"
@@ -195,7 +195,7 @@ const page = () => {
 
             {
                 state.cart && (
-                    <div className="mt-52 flex justify-center items-center">
+                    <div className="mt-28 flex justify-center items-center">
                         <PaginationDemo total={state.cart.products.length / limit} page={page} type="Cart" />
                     </div>
                 )
