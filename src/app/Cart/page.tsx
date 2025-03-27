@@ -60,7 +60,7 @@ const Cart = () => {
     useEffect(() => {
         setStart((page - 1) * limit);
     }, [page]);
-    return <Suspense>
+    return <>
         <section>
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 pt-34">
                 <div className="mx-auto max-w-3xl">
@@ -208,7 +208,7 @@ const Cart = () => {
                 )
             }
         </section>
-    </Suspense>
+    </>
 };
 
 export default Cart;
