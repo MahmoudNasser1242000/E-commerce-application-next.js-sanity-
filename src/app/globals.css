@@ -123,3 +123,11 @@
 .Toastify__close-button {
   @apply pr-[18px] sm:pr-0;
 }
+
+[role="dialog"] {
+  margin-top: 0;
+}
+
+[data-state="open"] {
+  z-index: 1000;
+}

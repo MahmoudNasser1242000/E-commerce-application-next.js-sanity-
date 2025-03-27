@@ -57,7 +57,7 @@ export default function Navbar() {
                         height={50}
                         className="object-contain"
                     />
-                    <span className="text-xl font-bold text-gray-800 dark:text-gray-100 font-mono">
+                    <span className={`${!user && "hidden sm:inline-block"} text-xl font-bold text-gray-800 dark:text-gray-100 font-mono`}>
                         My Store
                     </span>
                 </Link>
@@ -97,7 +97,7 @@ export default function Navbar() {
                                                 <Menu className="h-5 w-5" />
                                             </Button>
                                         </SheetTrigger>
-                                        <SheetContent side="left" className="sm:w-[40%] md:w-[50%] w-[60%] mt-1 bg-white dark:bg-black">
+                                        <SheetContent side="left" className="header-menu sm:w-[40%] md:w-[50%] w-[60%] mt-1 bg-white dark:bg-black">
                                             <SheetHeader>
                                                 <SheetTitle className="text-xl font-bold text-gray-800 dark:text-gray-100">
                                                     <Image
@@ -115,7 +115,7 @@ export default function Navbar() {
                                                         key={href}
                                                         href={href}
                                                         onClick={() => setOpen(false)}
-                                                        className={cn("text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white", buttonVariants({ variant: "ghost", className: "flex items-center justify-start mx-4" }))}
+                                                        className={cn("text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 dark:text-gray-300 dark:hover:text-white", buttonVariants({ variant: "ghost", className: "flex items-center justify-start mx-2" }))}
                                                     >
                                                         <span className="flex items-center justify-start gap-4 px-2">
                                                             <span><Icon /></span>
