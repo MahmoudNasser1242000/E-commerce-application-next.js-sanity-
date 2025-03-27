@@ -5,7 +5,7 @@ import { getOneProduct, getProducts } from "@/lib/products";
 import React from "react";
 interface PageProps {
     params: {
-        productId: string
+        productId: Promise<string>
     }
 }
 export async function generateStaticParams() {
@@ -13,7 +13,7 @@ export async function generateStaticParams() {
     return products.map((product) => ({ productId: product._id }));
 }
 const ProductDetailsPage = async ({ params }: PageProps) => {
-    const product = await getOneProduct(params.productId)
+    const product = await getOneProduct(await params.productId)
     return <div className="pt-34 container mx-auto">
         <Devider productTitle={product.title} />
         {product? <ProductDetails product={product} /> : <ProductDetailsSkeleton />}
