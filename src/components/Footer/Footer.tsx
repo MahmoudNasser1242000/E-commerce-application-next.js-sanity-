@@ -43,16 +43,18 @@ const Footer = () => {
             <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
                 <div className="flex justify-center text-teal-600">
                     <h1 className="flex items-center gap-4 text-3xl">
-                        <Image
-                            src={`/images/${themes === "dark" ? "logo-dark.svg" : "logo.svg"}`}
-                            alt="Logo"
-                            width={80}
-                            height={80}
-                            className="object-contain"
-                        />
-                        <span className="font-bold text-gray-800 dark:text-gray-100 font-mono">
-                            My Store
-                        </span>
+                        <Link href={"/"}>
+                            <Image
+                                src={`/images/${themes === "dark" ? "logo-dark.svg" : "logo.svg"}`}
+                                alt="Logo"
+                                width={80}
+                                height={80}
+                                className="object-contain"
+                            />
+                            <span className="font-bold text-gray-800 dark:text-gray-100 font-mono">
+                                My Store
+                            </span>
+                        </Link>
                     </h1>
                 </div>
 
