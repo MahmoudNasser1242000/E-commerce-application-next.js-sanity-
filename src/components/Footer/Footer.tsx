@@ -60,8 +60,8 @@ const Footer = () => {
                     Shop with confidence at [My Store], where quality meets convenience. Enjoy secure shopping, fast shipping, and top-notch customer service. Thank you for choosing us!
                 </p>
 
-                <ul className={`mt-6 flex flex-wrap justify-center gap-6 md:gap-8 lg:gap-12 ${user ? "block" : "hidden"}`}>
-                    {navLinks.map(({ href, label }: INavLinks) => (
+                <ul className={`mt-6 flex flex-wrap justify-center ${!user? "gap-5" : "gap-6 md:gap-8 lg:gap-12"}`}>
+                    {navLinks.filter(({ label }: { label: string }) => user? true : (label !== "Cart")).map(({ href, label }: INavLinks) => (
                         <li key={href}>
                             <Link
                                 href={href}
