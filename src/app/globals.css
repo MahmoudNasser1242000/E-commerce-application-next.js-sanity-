@@ -114,10 +114,10 @@
 .nav {
   /* From https://css.glass */
   @apply bg-background/30;
-  background: var(--glass);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px) saturate(180%);
-  -webkit-backdrop-filter: blur(10px);
+  background: var(--glass) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+  backdrop-filter: blur(10px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
 }
 
 .Toastify__close-button {
