@@ -1,5 +1,6 @@
 "use client"
 import React from "react";
+import { Input } from "@/components/ui/input";
 
 interface IPriceFilter {
   highPrice: number;
@@ -53,7 +54,7 @@ const PriceFilter = ({highPrice, fromPrice, toPrice, setFromPrice, setToPrice}: 
           <label htmlFor="FilterPriceFrom" className="flex items-center gap-2">
             <span className="text-sm text-gray-600 dark:text-gray-300">$</span>
 
-            <input
+            <Input
               type="number"
               id="FilterPriceFrom"
               placeholder="From"
@@ -67,7 +68,7 @@ const PriceFilter = ({highPrice, fromPrice, toPrice, setFromPrice, setToPrice}: 
           <label htmlFor="FilterPriceTo" className="flex items-center gap-2">
             <span className="text-sm text-gray-600 dark:text-gray-300">$</span>
 
-            <input
+            <Input
               type="number"
               id="FilterPriceTo"
               placeholder="To"
