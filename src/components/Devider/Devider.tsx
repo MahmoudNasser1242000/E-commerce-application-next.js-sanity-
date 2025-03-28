@@ -19,7 +19,7 @@ const Devider = ({productTitle}: {productTitle: string}) => {
 
                 <li className="flex items-center">
                     <Link
-                        href="/products"
+                        href="/Products"
                         className="flex h-full sm:h-12 items-center gap-1.5 bg-gray-200 dark:bg-primary dark:text-white px-4 transition hover:text-gray-900"
                     >
                         <ShoppingBag size={20} />

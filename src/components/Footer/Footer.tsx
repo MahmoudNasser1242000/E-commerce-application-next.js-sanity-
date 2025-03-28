@@ -31,7 +31,7 @@ const Footer = () => {
     }, [resolvedTheme]);
 
     useEffect(() => {
-        if (path === "/" || path === "/Products" || path === "/Contact" || path.includes("/Product-Details")) {
+        if (path !== "Cart" || path.includes("/Product-Details")) {
             setPathValid(true);
         } else {
             setPathValid(false);
