@@ -113,7 +113,7 @@
 
 .nav {
   /* From https://css.glass */
-  @apply bg-background/30 backdrop-blur-md backdrop-saturate-150 shadow-lg;;
+  /* @apply bg-background/30 backdrop-blur-md backdrop-saturate-150 shadow-lg; */
   /* background: var(--glass) !important;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
   backdrop-filter: blur(10px) saturate(180%) !important;
