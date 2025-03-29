@@ -46,7 +46,7 @@ export default function Navbar() {
         }
     }, [user?.emailAddresses, fetchCart]);
     return (
-        <nav className="fixed left-0 right-0 bg-white dark:bg-black py-1 nav z-1000 bg-background/30 backdrop-blur-md backdrop-saturate-150 shadow-lg">
+        <nav className="fixed left-0 right-0 py-1 nav z-1000 bg-background/30 backdrop-blur-md backdrop-saturate-150 shadow-lg">
             <div className="mx-auto flex justify-between h-16 max-w-screen-xl items-center px-4">
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-2 focus:ring-0">
