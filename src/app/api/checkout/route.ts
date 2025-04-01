@@ -39,8 +39,8 @@ export async function POST(req: Request) {
             payment_method_types: ["card"],
             line_items: lineItems,
             mode: "payment",
-            success_url: `my-store-app-steel.vercel.app/payment-confirm/${cart._id}`,
-            cancel_url: `my-store-app-steel.vercel.app/Cart`,
+            success_url: `https://my-store-app-steel.vercel.app//payment-confirm/${cart._id}`,
+            cancel_url: `https://my-store-app-steel.vercel.app//Cart`,
             customer_email: email,
             metadata: { cartId: cart._id },
         });
