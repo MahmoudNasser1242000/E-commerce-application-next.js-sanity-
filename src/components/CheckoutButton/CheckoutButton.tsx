@@ -24,6 +24,8 @@ export default function CheckoutButton({ cart }: { cart: ICart }) {
         setLoading(false);
 
         if (data.url) {
+            // Redirect to Stripe Checkout
+            window.location.href = data.url;
             // Send email to user
             await fetch("/api/send", {
                 method: "POST",
@@ -32,8 +34,6 @@ export default function CheckoutButton({ cart }: { cart: ICart }) {
             });
             //Clear cart products
             await clearCart(cart.email, themes as "light" | "dark", false)
-            // Redirect to Stripe Checkout
-            window.location.href = data.url;
         } else {
             alert("Error: " + data.error);
         }
