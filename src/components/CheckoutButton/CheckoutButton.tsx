@@ -25,7 +25,7 @@ export default function CheckoutButton({ cart }: { cart: ICart }) {
 
         if (data.url) {
             // Redirect to Stripe Checkout
-            window.location.href = data.url;
+            window.open(data.url, "_blank");
             // Send email to user
             await fetch("/api/send", {
                 method: "POST",
