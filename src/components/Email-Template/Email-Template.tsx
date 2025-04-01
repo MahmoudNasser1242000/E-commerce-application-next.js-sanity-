@@ -74,7 +74,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({ cart }) 
                         textDecoration: "none",
                         display: "inline-block"
                     }}
-                    href="http://localhost:3000/"
+                    href="https://my-store-app-steel.vercel.app/"
                 >
                     Visit Us
                 </Button>
