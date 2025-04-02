@@ -56,7 +56,7 @@ const ProductsPageContent = ({ page, category = "" }: { page: number, category: 
     }, []);
     useEffect(() => {
         if (category) {
-            setTotal(products?.length as number)
+            setTotal(products?.length as number);
         } else {
             getTotalProductsLength();
         }
