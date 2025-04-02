@@ -13,14 +13,14 @@ import {
 } from "@/components/ui/select";
 import PaginationDemo from "@/components/Pagination/Pagination";
 import ProductCardLoading from "@/components/ProductCardLoading/ProductCardLoading";
+import { useRouter } from "next/navigation";
 
-const ProductsPageContent = ({page}: {page: number}) => {
+const ProductsPageContent = ({ page, category = "" }: { page: number, category: string }) => {
     const [products, setProducts] = useState<IProducts[]>();
     const [fromPrice, setFromPrice] = useState<number>(0);
     const [toPrice, setToPrice] = useState<number>(0);
     const [highPrice, setHighPrice] = useState<number>(0);
     const [categories, setCategories] = useState<string[]>([]);
-    const [category, setCategory] = useState<string>("none");
     const [total, setTotal] = useState<number>(0);
 
     const limit = 10;
@@ -55,25 +55,37 @@ const ProductsPageContent = ({page}: {page: number}) => {
         getAllCategories();
     }, []);
     useEffect(() => {
-        getTotalProductsLength();
-    }, []);
+        if (category) {
+            setTotal(products?.length as number)
+        } else {
+            getTotalProductsLength();
+        }
+    }, [category, products]);
+
+    const router = useRouter();
+    
     return <div className="pt-34 container sm:mx-auto px-4">
         <div className="flex justify-between items-center flex-wrap px-4 gap-4">
             <div className="w-full sm:w-[48%] lg:w-[40%]">
-                <Select onValueChange={(value) => setCategory(value)}>
+                <Select value={category? category : "all"} onValueChange={(value) => { router.push(`/Products?page=${page}${value !== "all" ? `&category=${value}` : ""}`) }}>
                     <SelectTrigger className="w-full py-[26px] px-4 bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-600 rounded-sm flex items-center justify-between gap-2 text-gray-900 dark:text-white">
                         <SelectValue placeholder="Category" />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectItem value={"none"}>Category</SelectItem>
+                        <SelectItem value={"all"}>
+                            Category
+                        </SelectItem>
                         {
                             categories.map((category) => (
-                                <SelectItem key={category} value={category}>{category}</SelectItem>
+                                <SelectItem key={category} value={category}>
+                                    {category}
+                                </SelectItem>
                             ))
                         }
                     </SelectContent>
                 </Select>
             </div>
+
             <PriceFilter highPrice={highPrice} fromPrice={fromPrice} setFromPrice={setFromPrice} toPrice={toPrice} setToPrice={setToPrice} />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-34 mt-8">
@@ -84,7 +96,7 @@ const ProductsPageContent = ({page}: {page: number}) => {
                             <ProductCard key={product._id} product={product} />
                         ))
                     ) : (
-                        <h2 className="px-6 py-8 text-2xl">Your cart is empty</h2>
+                        <h2 className="px-6 py-8 text-2xl w-full">You don't have any products right now!</h2>
                     )
                 ) : (
                     Array.from({ length: 4 }, (_, index) => <ProductCardLoading key={index} />)
@@ -93,7 +105,7 @@ const ProductsPageContent = ({page}: {page: number}) => {
         </div>
 
         <div className="mt-52 flex justify-center items-center">
-            <PaginationDemo total={total / limit} page={page} type="Products" />
+            <PaginationDemo total={total / limit} page={page} type="Products" category={category} />
         </div>
     </div>;
 };

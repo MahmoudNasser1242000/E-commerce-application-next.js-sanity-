@@ -42,7 +42,7 @@ export const getProductsByPriceRange = async (minPrice: number, maxPrice: number
     const start = (page - 1) * limit;
     const end = (start + limit) - 1;
     const query = `
-        *[_type == "products" ${category === "none" ? "" : `&& category==$category`} && ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}] | order(_createdAt desc) [${start}..${end}] {
+        *[_type == "products" ${!category ? "" : `&& category==$category`} && ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}] | order(_createdAt desc) [${start}..${end}] {
             _id, 
             title, 
             description, 
