@@ -96,7 +96,7 @@ const ProductsPageContent = ({ page, category = "" }: { page: number, category: 
                             <ProductCard key={product._id} product={product} />
                         ))
                     ) : (
-                        <h2 className="px-6 py-8 text-2xl w-full">You don't have any products right now!</h2>
+                        <h2 className="px-6 py-8 text-2xl col-span-4">{`You don't have any products right now!`}</h2>
                     )
                 ) : (
                     Array.from({ length: 4 }, (_, index) => <ProductCardLoading key={index} />)
