@@ -97,7 +97,7 @@ const ProductsPageContent = ({ page, category = "" }: { page: number, category: 
                         ))
                     ) : (
                         <h2 className="px-6 py-8 text-2xl col-span-4">
-                            You have not any products right now!
+                            You don&apos;t have any products right now! 
                         </h2>
                     )
                 ) : (
