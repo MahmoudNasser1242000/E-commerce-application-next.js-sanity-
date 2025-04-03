@@ -20,6 +20,25 @@ export const getProducts = async () => {
     return projects as IProducts[]
 }
 
+export const getProductsWithCategory = async (category: string) => {
+    const query =
+        `
+        *[_type=="products" && category==$category]{
+            _id, 
+            title, 
+            description, 
+            image,
+            instantDelivery, 
+            price,
+            category, 
+            publishedAt,
+        }[]
+    `
+
+    const projects = await client.fetch(query, {category})
+    return projects as IProducts[]
+}
+
 export const getOneProduct = async (productId: string) => {
     const query = `
         *[_type == "products" && _id == $productId][0] {
