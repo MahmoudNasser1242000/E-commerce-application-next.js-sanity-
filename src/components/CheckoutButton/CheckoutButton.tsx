@@ -1,16 +1,10 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "../ui/button";
 import { ICart } from "@/types";
-import { useCart } from "@/context/Cart";
-import { useTheme } from "next-themes";
 
 export default function CheckoutButton({ cart }: { cart: ICart }) {
     const [loading, setLoading] = useState(false);
-    const { resolvedTheme } = useTheme();
-    const [themes, setTheme] = useState<string>("");
-
-    const { clearCart } = useCart();
 
     const handleCheckout = async () => {
         setLoading(true);
@@ -25,27 +19,11 @@ export default function CheckoutButton({ cart }: { cart: ICart }) {
 
         if (data.url) {
             // Redirect to Stripe Checkout
-            window.open(data.url, "_blank");
-            // Send email to user
-            await fetch("/api/send", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email: cart?.email }),
-            });
-            //Clear cart products
-            await clearCart(cart.email, themes as "light" | "dark", false)
+            window.location.href = data.url;
         } else {
             alert("Error: " + data.error);
         }
     };
-
-    useEffect(() => {
-        if (resolvedTheme === "dark") {
-            setTheme("dark")
-        } else {
-            setTheme("light")
-        }
-    }, [resolvedTheme]);
 
     return (
         <Button
