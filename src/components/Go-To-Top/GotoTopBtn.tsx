@@ -33,7 +33,7 @@ const GoToTop = () => {
                 buttonVariants({
                     variant: "default",
                     className:
-                        "px-6 rounded-sm",
+                        "px-6 py-5 rounded-sm",
                 })
             )}
             initial={{ y: 0 }}
