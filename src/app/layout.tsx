@@ -9,6 +9,7 @@ import {
 } from '@clerk/nextjs'
 import { Bounce, ToastContainer } from 'react-toastify';
 import Cart from "@/context/Cart";
+import GoToTop from "@/components/Go-To-Top/GotoTopBtn";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="overflow-x-hidden">
+    <html lang="en" className="overflow-x-hidden scroll-smooth">
       <head>
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -64,6 +65,7 @@ export default function RootLayout({
                 transition={Bounce}
               />
             </Cart>
+            <GoToTop />
           </ThemeProvider>
         </ClerkProvider>
       </body>
