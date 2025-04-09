@@ -57,7 +57,7 @@ const CartPageContent = ({page}: {page: number}) => {
         setStart((page - 1) * limit);
     }, [page]);
     return <>
-        <section>
+        <section id="goTop">
             <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 pt-34">
                 <div className="mx-auto max-w-3xl">
                     <header className="text-center">

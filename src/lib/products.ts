@@ -1,10 +1,12 @@
 import { IProducts } from '@/types';
 import { client } from "@/sanity/lib/client"
 
-export const getProducts = async () => {
+export const getProducts = async (minPrice: number = 0, maxPrice: number = 0, category: string = "") => {
     const query =
         `
-        *[_type=="products"]{
+        *[_type=="products"
+            ${!category ? "" : `&& category==$category`} && 
+            ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}]{
             _id, 
             title, 
             description, 
@@ -16,7 +18,7 @@ export const getProducts = async () => {
         }[]
     `
 
-    const projects = await client.fetch(query)
+    const projects = await client.fetch(query, { minPrice, maxPrice, category })
     return projects as IProducts[]
 }
 
@@ -35,7 +37,7 @@ export const getProductsWithCategory = async (category: string) => {
         }[]
     `
 
-    const projects = await client.fetch(query, {category})
+    const projects = await client.fetch(query, { category })
     return projects as IProducts[]
 }
 
@@ -61,7 +63,9 @@ export const getProductsByPriceRange = async (minPrice: number, maxPrice: number
     const start = (page - 1) * limit;
     const end = (start + limit) - 1;
     const query = `
-        *[_type == "products" ${!category ? "" : `&& category==$category`} && ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}] | order(_createdAt desc) [${start}..${end}] {
+        *[_type == "products" 
+            ${!category ? "" : `&& category==$category`} && 
+            ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}] | order(_createdAt desc) [${start}..${end}] {
             _id, 
             title, 
             description, 

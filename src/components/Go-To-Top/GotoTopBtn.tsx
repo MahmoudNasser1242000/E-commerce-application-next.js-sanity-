@@ -39,7 +39,7 @@ const GoToTop = () => {
             initial={{ y: 0 }}
             animate={{ y: -17, transition: { duration: 1, repeat: Infinity, ease: "linear" } }}
         >
-            <Link to="home" smooth={true} duration={500} className="cursor-pointer">
+            <Link to="goTop" smooth={true} duration={500} className="cursor-pointer">
                 <ChevronsUp className="ChevronsUp text-white" />
             </Link>
         </motion.span>

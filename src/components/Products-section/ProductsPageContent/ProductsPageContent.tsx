@@ -26,7 +26,7 @@ const ProductsPageContent = ({ page, category = "" }: { page: number, category: 
     const limit = 10;
 
     const getTotalProductsLength = async () => {
-        const products = await getProducts();
+        const products = await getProducts(fromPrice, toPrice, category);
         setTotal(products?.length)
     }
 
@@ -55,16 +55,12 @@ const ProductsPageContent = ({ page, category = "" }: { page: number, category: 
         getAllCategories();
     }, []);
     useEffect(() => {
-        if (category) {
-            setTotal(products?.length as number);
-        } else {
-            getTotalProductsLength();
-        }
-    }, [category, products]);
+        getTotalProductsLength();
+    }, [category, fromPrice, toPrice]);
 
     const router = useRouter();
     
-    return <div className="pt-34 container sm:mx-auto px-4">
+    return <div className="pt-34 container sm:mx-auto px-4" id="goTop">
         <div className="flex justify-between items-center flex-wrap px-4 gap-4">
             <div className="w-full sm:w-[48%] lg:w-[40%]">
                 <Select value={category? category : "all"} onValueChange={(value) => { router.push(`/Products?page=${page}${value !== "all" ? `&category=${value}` : ""}`) }}>

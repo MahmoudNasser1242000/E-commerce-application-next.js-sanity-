@@ -65,7 +65,7 @@ const Contact = () => {
         }
     }
 
-    return <div className="relative flex flex-col items-center justify-center px-6 sm:px-12 pt-38" id="contact">
+    return <div className="relative flex flex-col items-center justify-center px-6 sm:px-12 pt-38" id="goTop">
         <SectionTitle
             title={"Contact Us"}
             desc={"If You'v Any Comments Or Feedback"}

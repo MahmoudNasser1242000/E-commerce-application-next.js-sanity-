@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 const ProductDetailsPage = async ({ params }: { params: TParams }) => {
     const product = await getOneProduct((await params).productId);
     return (
-        <div className="pt-34 container mx-auto">
+        <div className="pt-34 container mx-auto" id="goTop">
             <Devider productTitle={product.title} />
             {product ? <ProductDetails product={product} /> : <ProductDetailsSkeleton />}
             {product && (

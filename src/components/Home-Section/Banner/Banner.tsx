@@ -5,7 +5,7 @@ import { buttonVariants } from "../../ui/button";
 
 const Banner = () => {
     return <>
-        <section className="mx-auto max-w-screen-xl px-4 pt-58 pb-42 lg:flex lg:items-center" id="home">
+        <section className="mx-auto max-w-screen-xl px-4 pt-58 pb-42 lg:flex lg:items-center" id="goTop">
             <div className="mx-auto max-w-2xl text-center">
                 <h1 className="text-4xl font-extrabold sm:text-5xl text-black dark:bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 dark:text-transparent bg-clip-text">
                     Improve Shopping Flow.
