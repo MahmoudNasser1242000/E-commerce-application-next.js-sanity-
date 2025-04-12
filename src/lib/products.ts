@@ -1,12 +1,17 @@
-import { IProducts } from '@/types';
-import { client } from "@/sanity/lib/client"
+import { IProducts } from "@/types";
+import { client } from "@/sanity/lib/client";
 
-export const getProducts = async (minPrice: number = 0, maxPrice: number = 0, category: string = "") => {
-    const query =
-        `
+export const getProducts = async (
+    minPrice: number = 0,
+    maxPrice: number = 0,
+    category: string = "",
+    keyword: string = ""
+) => {
+    const query = `
         *[_type=="products"
             ${!category ? "" : `&& category==$category`} && 
-            ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}]{
+            ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}
+            ${keyword ? `&& title match "*${keyword}*"` : ""}]{
             _id, 
             title, 
             description, 
@@ -16,15 +21,19 @@ export const getProducts = async (minPrice: number = 0, maxPrice: number = 0, ca
             category, 
             publishedAt,
         }[]
-    `
+    `;
 
-    const projects = await client.fetch(query, { minPrice, maxPrice, category })
-    return projects as IProducts[]
-}
+    const projects = await client.fetch(query, {
+        minPrice,
+        maxPrice,
+        category,
+        keyword,
+    });
+    return projects as IProducts[];
+};
 
 export const getProductsWithCategory = async (category: string) => {
-    const query =
-        `
+    const query = `
         *[_type=="products" && category==$category]{
             _id, 
             title, 
@@ -35,11 +44,11 @@ export const getProductsWithCategory = async (category: string) => {
             category, 
             publishedAt,
         }[]
-    `
+    `;
 
-    const projects = await client.fetch(query, { category })
-    return projects as IProducts[]
-}
+    const projects = await client.fetch(query, { category });
+    return projects as IProducts[];
+};
 
 export const getOneProduct = async (productId: string) => {
     const query = `
@@ -59,13 +68,21 @@ export const getOneProduct = async (productId: string) => {
     return product as IProducts; // ✅ Returns a single product (not an array)
 };
 
-export const getProductsByPriceRange = async (minPrice: number, maxPrice: number, category: string, page: number = 1, limit: number = 10) => {
+export const getProductsWithFilteration = async (
+    minPrice: number,
+    maxPrice: number,
+    category: string,
+    keyword: string,
+    page: number = 1,
+    limit: number = 10
+) => {
     const start = (page - 1) * limit;
-    const end = (start + limit) - 1;
+    const end = start + limit - 1;
     const query = `
         *[_type == "products" 
             ${!category ? "" : `&& category==$category`} && 
-            ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}] | order(_createdAt desc) [${start}..${end}] {
+            ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}
+            ${keyword ? `&& title match "*${keyword}*"` : ""}] | order(_createdAt desc) [${start}..${end}] {
             _id, 
             title, 
             description, 
@@ -77,6 +94,11 @@ export const getProductsByPriceRange = async (minPrice: number, maxPrice: number
         }[]
     `;
 
-    const products = await client.fetch(query, { minPrice, maxPrice, category });
+    const products = await client.fetch(query, {
+        minPrice,
+        maxPrice,
+        category,
+        keyword,
+    });
     return products as IProducts[];
 };
