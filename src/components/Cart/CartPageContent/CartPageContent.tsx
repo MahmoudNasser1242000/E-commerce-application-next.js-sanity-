@@ -173,7 +173,7 @@ const CartPageContent = ({page}: {page: number}) => {
                                                         />
                                                     </svg>
 
-                                                    <p className="text-lg font-bold font-mono whitespace-nowrap">
+                                                    <p className="text-lg font-mono whitespace-nowrap p-1 flex items-center justify-center">
                                                         Total: ${
                                                             state.cart.products?.reduce((acc, product) => acc + product.price, 0).toFixed(2)
                                                         }

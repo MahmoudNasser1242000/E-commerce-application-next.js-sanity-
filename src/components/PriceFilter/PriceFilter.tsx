@@ -17,7 +17,7 @@ const PriceFilter = ({highPrice, fromPrice, toPrice, setFromPrice, setToPrice}: 
     <summary
       className="flex cursor-pointer items-center justify-between gap-2 bg-white p-4 text-gray-900 transition dark:bg-gray-900 dark:text-white"
     >
-      <span className="text-sm font-medium"> Price </span>
+      <span className="text-sm"> Price </span>
 
       <span className="transition group-open:-rotate-180">
         <svg

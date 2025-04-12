@@ -73,6 +73,7 @@ export const getProductsWithFilteration = async (
     maxPrice: number,
     category: string,
     keyword: string,
+    sortBy: string,
     page: number = 1,
     limit: number = 10
 ) => {
@@ -82,7 +83,7 @@ export const getProductsWithFilteration = async (
         *[_type == "products" 
             ${!category ? "" : `&& category==$category`} && 
             ${maxPrice ? `price >= $minPrice && price <= $maxPrice` : `price >= $minPrice`}
-            ${keyword ? `&& title match "*${keyword}*"` : ""}] | order(_createdAt desc) [${start}..${end}] {
+            ${keyword ? `&& title match "*${keyword}*"` : ""}] | order(${sortBy ? sortBy : "createdAt desc"}) [${start}..${end}] {
             _id, 
             title, 
             description, 
@@ -99,6 +100,9 @@ export const getProductsWithFilteration = async (
         maxPrice,
         category,
         keyword,
+        sortBy,
+        page,
+        limit
     });
     return products as IProducts[];
 };
